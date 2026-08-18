@@ -1,4 +1,4 @@
-// Business Sellability Assessment Questions & Conditional Logic Configuration
+// Business Sellability Assessment Questions, Conditional Logic & Valuation Engine
 
 export const SECTIONS = {
   FINANCIAL: "Financial Foundations",
@@ -15,12 +15,12 @@ export const QUESTIONS = [
     sectionNumber: 1,
     questionNumber: 1,
     title: "What is your top line revenue over the trailing twelve months (TTM)?",
-    subtitle: "Higher revenue provides your business with a stronger valuation foundation and higher buyer interest.",
+    subtitle: "Revenue scale establishes your baseline valuation tier and determines which buyer pools (strategic vs. private equity) will compete for your asset.",
     options: [
-      { id: "q1_a", label: "Under $1 Million", points: 5 },
-      { id: "q1_b", label: "$1 Million to $3 Million", points: 10 },
-      { id: "q1_c", label: "$3 Million to $10 Million", points: 15 },
-      { id: "q1_d", label: "Over $10 Million", points: 20 }
+      { id: "q1_a", label: "Under £1 Million", points: 5, revenueEstimate: 650000 },
+      { id: "q1_b", label: "£1 Million to £3 Million", points: 10, revenueEstimate: 2000000 },
+      { id: "q1_c", label: "£3 Million to £10 Million", points: 15, revenueEstimate: 6000000 },
+      { id: "q1_d", label: "Over £10 Million", points: 20, revenueEstimate: 15000000 }
     ]
   },
   {
@@ -29,12 +29,12 @@ export const QUESTIONS = [
     sectionNumber: 1,
     questionNumber: 2,
     title: "What is your average net profit margin?",
-    subtitle: "Healthy net margins demonstrate your operational efficiency and cash flow reliability.",
+    subtitle: "Healthy net margins demonstrate your operational efficiency and generate the transferable EBITDA buyers actually pay for.",
     options: [
-      { id: "q2_a", label: "Negative or Breakeven", points: 0, triggersConditional: "q2b" },
-      { id: "q2_b", label: "1% to 10%", points: 5 },
-      { id: "q2_c", label: "11% to 20%", points: 10 },
-      { id: "q2_d", label: "Over 20%", points: 15 }
+      { id: "q2_a", label: "Negative or Breakeven", points: 0, marginEstimate: 0.03, triggersConditional: "q2b" },
+      { id: "q2_b", label: "1% to 10%", points: 5, marginEstimate: 0.075 },
+      { id: "q2_c", label: "11% to 20%", points: 10, marginEstimate: 0.15 },
+      { id: "q2_d", label: "Over 20%", points: 15, marginEstimate: 0.25 }
     ]
   },
   // CONDITIONAL BRANCH Q2B
@@ -46,7 +46,7 @@ export const QUESTIONS = [
     sectionNumber: 1,
     questionNumber: "2B",
     title: "What is the primary reason for your negative or breakeven profit margin?",
-    subtitle: "Differentiating growth investment from systemic weakness helps assess your true business valuation potential.",
+    subtitle: "Differentiating deliberate growth investment from systemic weakness determines whether buyers see upside or operational risk.",
     options: [
       { id: "q2b_a", label: "Deliberate reinvestment for aggressive growth", points: 3 },
       { id: "q2b_b", label: "Temporary market conditions", points: 1 },
@@ -60,7 +60,7 @@ export const QUESTIONS = [
     sectionNumber: 1,
     questionNumber: 3,
     title: "What is your revenue growth rate year over year (YoY)?",
-    subtitle: "Your growth rate signals market trajectory and future expansion potential to prospective buyers.",
+    subtitle: "Growth trajectory is the ultimate multiplier. Acquirers severely discount or walk away from contracting businesses.",
     options: [
       { id: "q3_a", label: "Declining", points: 0, capsScore: 70, flag: "declining_revenue_cap" },
       { id: "q3_b", label: "Flat (0% growth)", points: 5 },
@@ -76,7 +76,7 @@ export const QUESTIONS = [
     sectionNumber: 2,
     questionNumber: 4,
     title: "How many hours a week do you spend on front-line daily operations?",
-    subtitle: "The more daily operations depend directly on you, the harder it is for a buyer to step in and take over.",
+    subtitle: "The more daily operations depend directly on you, the harder it is for a buyer to step in without you.",
     options: [
       { id: "q4_a", label: "Over 40 hours per week", points: 0 },
       { id: "q4_b", label: "20 to 40 hours per week", points: 3 },
@@ -90,7 +90,7 @@ export const QUESTIONS = [
     sectionNumber: 2,
     questionNumber: 5,
     title: "What happens to your sales if you step away completely for 3 months?",
-    subtitle: "Tests how dependent your revenue engine is on your personal relationships and presence.",
+    subtitle: "Tests whether your revenue engine is an institutional machine or a personal rolodex.",
     options: [
       { id: "q5_a", label: "Sales drop to zero", points: 0, flag: "hard_to_sell_institutional" },
       { id: "q5_b", label: "Sales decrease by half", points: 3 },
@@ -104,7 +104,7 @@ export const QUESTIONS = [
     sectionNumber: 2,
     questionNumber: 6,
     title: "Do you have a second-in-command who can run daily operations autonomously?",
-    subtitle: "Having a leader run operations without you dramatically increases your business's transferable value.",
+    subtitle: "A proven management team transforms your business from a founder-dependent job into a high-multiple asset.",
     options: [
       { id: "q6_a", label: "No second-in-command", points: 0 },
       { id: "q6_b", label: "Yes, but they are very new", points: 3 },
@@ -120,7 +120,7 @@ export const QUESTIONS = [
     sectionNumber: 3,
     questionNumber: 7,
     title: "What percentage of your total revenue comes from your single largest customer?",
-    subtitle: "High customer concentration poses a major risk to your business if your top account leaves.",
+    subtitle: "High customer concentration is the #1 deal-killer during acquirer financing and due diligence.",
     options: [
       { id: "q7_a", label: "Under 5%", points: 10 },
       { id: "q7_b", label: "5% to 15%", points: 7 },
@@ -137,7 +137,7 @@ export const QUESTIONS = [
     sectionNumber: 3,
     questionNumber: "7B",
     title: "Is that major customer locked into a binding contract or agreement?",
-    subtitle: "Contractual terms determine how securely your concentrated revenue is protected.",
+    subtitle: "Contractual terms determine how securely your concentrated cash flow is protected.",
     options: [
       { id: "q7b_a", label: "Locked into a long-term binding contract", points: 3 },
       { id: "q7b_b", label: "Operates on a month-to-month basis", points: 0 },
@@ -151,7 +151,7 @@ export const QUESTIONS = [
     sectionNumber: 3,
     questionNumber: 8,
     title: "How easy would it be for you to replace your primary supplier or vendor?",
-    subtitle: "Single point of failure suppliers can derail your exit due diligence.",
+    subtitle: "Single-point-of-failure suppliers create operational fragility that buyers discount.",
     options: [
       { id: "q8_a", label: "Impossible due to exclusive patents or single source", points: 0 },
       { id: "q8_b", label: "Extremely difficult", points: 2 },
@@ -165,7 +165,7 @@ export const QUESTIONS = [
     sectionNumber: 3,
     questionNumber: 9,
     title: "What would happen to your business if your top salesperson left tomorrow?",
-    subtitle: "Measures how dependent your revenue is on key staff versus your internal sales systems.",
+    subtitle: "Measures whether your sales system belongs to the business or resides in an individual's head.",
     options: [
       { id: "q9_a", label: "Catastrophic loss of revenue", points: 0 },
       { id: "q9_b", label: "Significant revenue drop for months", points: 3 },
@@ -181,7 +181,7 @@ export const QUESTIONS = [
     sectionNumber: 4,
     questionNumber: 10,
     title: "What portion of your sales comes from automatic subscriptions or hard contracts?",
-    subtitle: "Predictable recurring revenue commands the highest buyer valuation multiples.",
+    subtitle: "Predictable, guaranteed future cash flow commands the highest valuation multiples in the M&A market.",
     options: [
       { id: "q10_a", label: "None (100% transactional)", points: 0 },
       { id: "q10_b", label: "Under 20%", points: 4 },
@@ -195,7 +195,7 @@ export const QUESTIONS = [
     sectionNumber: 4,
     questionNumber: 11,
     title: "How would your customers react to a 10% price increase tomorrow?",
-    subtitle: "Tests your pricing power and how indispensable your offer is to your customers.",
+    subtitle: "Pricing power demonstrates customer retention, brand defensibility, and competitive moat.",
     options: [
       { id: "q11_a", label: "Massive customer defection", points: 0 },
       { id: "q11_b", label: "Heavy complaints with some customer churn", points: 3 },
@@ -209,7 +209,7 @@ export const QUESTIONS = [
     sectionNumber: 4,
     questionNumber: 12,
     title: "How do your gross margins compare to your industry average?",
-    subtitle: "High gross margins reflect your pricing leverage and competitive moat.",
+    subtitle: "Superior gross margins prove pricing leverage and protect profits during economic contractions.",
     options: [
       { id: "q12_a", label: "Significantly lower than industry average", points: 0 },
       { id: "q12_b", label: "Slightly lower than industry average", points: 3 },
@@ -223,7 +223,7 @@ export const QUESTIONS = [
     sectionNumber: 4,
     questionNumber: 13,
     title: "When do your customers typically pay for your goods or services?",
-    subtitle: "Upfront customer payments eliminate cash flow stress and boost your business valuation.",
+    subtitle: "Negative working capital cycles eliminate buyer debt burden and drastically increase enterprise value.",
     options: [
       { id: "q13_a", label: "Net 60 days or more", points: 0 },
       { id: "q13_b", label: "Net 30 days", points: 3 },
@@ -237,7 +237,7 @@ export const QUESTIONS = [
     sectionNumber: 4,
     questionNumber: 14,
     title: "How likely are your customers to refer a friend or leave a positive review?",
-    subtitle: "Customer loyalty indicates your brand equity and organic word-of-mouth strength.",
+    subtitle: "Customer loyalty indicates organic word-of-mouth momentum and lowers customer acquisition costs for acquirers.",
     options: [
       { id: "q14_a", label: "Very unlikely", points: 0 },
       { id: "q14_b", label: "Somewhat unlikely", points: 3 },
@@ -251,7 +251,7 @@ export const QUESTIONS = [
     sectionNumber: 4,
     questionNumber: 15,
     title: "How are your business financial records maintained?",
-    subtitle: "Clean financial records protect your valuation and ensure a smooth exit process.",
+    subtitle: "Clean, verified financial records shorten diligence timelines and prevent buyers from chipping away at your price.",
     options: [
       { id: "q15_a", label: "No standard bookkeeping / shoebox accounting", points: 0 },
       { id: "q15_b", label: "Standard internal software (e.g., QuickBooks, Xero)", points: 4 },
@@ -266,8 +266,9 @@ export const OUTCOME_TIERS = {
     minScore: 0,
     maxScore: 50,
     title: "Owner-Dependent Job Warning",
-    subtitle: "Your business is currently structured like a job for you rather than a transferable asset.",
-    color: "#EF4444", // Red
+    multipleRange: "1.5x – 2.5x EBITDA",
+    multipleMid: 2.0,
+    color: "#EF4444",
     badgeClass: "badge-danger",
     headline: "High Founder Dependency — Action Plan to Build Your SOP Infrastructure",
     description: "Acquirers look for businesses that run smoothly without the founder. At your current score, a buyer would view purchasing your business as buying a demanding job rather than a self-sustaining asset.",
@@ -282,8 +283,9 @@ export const OUTCOME_TIERS = {
     minScore: 51,
     maxScore: 70,
     title: "High-Risk Asset with Potential",
-    subtitle: "Your business has solid foundational value but carries key buyer risk factors.",
-    color: "#F59E0B", // Amber
+    multipleRange: "3.0x – 4.5x EBITDA",
+    multipleMid: 3.8,
+    color: "#F59E0B",
     badgeClass: "badge-warning",
     headline: "Sellable with Valuation Discounts — Your Risk Mitigation Roadmap",
     description: "Your business is sellable, but buyers will likely apply valuation discounts to protect against key risk factors (such as customer concentration, lack of long-term contracts, or reliance on you).",
@@ -298,8 +300,9 @@ export const OUTCOME_TIERS = {
     minScore: 71,
     maxScore: 89,
     title: "Strong Valuation & Highly Marketable",
-    subtitle: "Your business is highly attractive to buyers with strong, scalable operations.",
-    color: "#2ABAD2", // Teal
+    multipleRange: "5.0x – 6.5x EBITDA",
+    multipleMid: 5.8,
+    color: "#2ABAD2",
     badgeClass: "badge-success",
     headline: "Highly Marketable Business — You Are Ready for Competitive Offers",
     description: "You have built a clean, scalable business with strong profit margins, solid management, and diversified revenue. Buyers will actively compete for a business with your profile.",
@@ -314,8 +317,9 @@ export const OUTCOME_TIERS = {
     minScore: 90,
     maxScore: 100,
     title: "Premium Exit Asset",
-    subtitle: "A rare, top-tier turn-key business that can command above-market valuation multiples.",
-    color: "#10B981", // Emerald Green
+    multipleRange: "7.5x – 10.0x+ EBITDA",
+    multipleMid: 8.5,
+    color: "#10B981",
     badgeClass: "badge-premium",
     headline: "Trophy Business Asset — You Have Achieved Elite Exit Valuation Potential",
     description: "Fewer than 3% of business owners achieve this tier. Your business features autonomous management, high-margin recurring cash flows, bulletproof contracts, and clean audited financials.",
@@ -326,4 +330,131 @@ export const OUTCOME_TIERS = {
       "Prepare key management retention packages to ensure zero disruption during your ownership transfer."
     ]
   }
+};
+
+// Valuation & Multiplier Calculator Helper
+export const calculateValuation = (answers, score) => {
+  const revOption = answers['q1'];
+  const marginOption = answers['q2'];
+
+  const revenue = revOption?.revenueEstimate || 2000000;
+  const margin = marginOption?.marginEstimate || 0.15;
+  const estimatedEbitda = Math.max(50000, Math.round(revenue * margin));
+
+  // Determine current multiple based on score
+  let currentMultiple = 2.0;
+  if (score >= 90) currentMultiple = 8.5;
+  else if (score >= 71) currentMultiple = 5.8;
+  else if (score >= 51) currentMultiple = 3.8;
+  else currentMultiple = 2.0;
+
+  const currentValuation = Math.round(estimatedEbitda * currentMultiple);
+  const potentialMultiple = 8.5; // Top tier multiple
+  const potentialValuation = Math.round(estimatedEbitda * potentialMultiple);
+  const valuationGap = Math.max(0, potentialValuation - currentValuation);
+
+  return {
+    revenue,
+    margin,
+    estimatedEbitda,
+    currentMultiple,
+    currentValuation,
+    potentialMultiple,
+    potentialValuation,
+    valuationGap
+  };
+};
+
+// Peer Percentile Rank Helper
+export const calculatePercentile = (score) => {
+  if (score >= 95) return 98;
+  if (score >= 88) return 94;
+  if (score >= 75) return 86;
+  if (score >= 60) return 69;
+  if (score >= 45) return 48;
+  return 24;
+};
+
+// Dynamic #1 Primary Value Killer Diagnostic
+export const diagnosePrimaryValueKiller = (answers, score) => {
+  // 1. Extreme Founder Reliance (Q5: Sales drop to zero)
+  if (answers['q5']?.id === 'q5_a') {
+    return {
+      category: "Founder Trap (Severe Key-Person Risk)",
+      impact: "Cuts your EBITDA multiple by up to 50% & triggers 3–5 year earnouts",
+      diagnosis: "Sales drop to zero if you step away for 3 months. In M&A, buyers do not buy jobs — they buy self-sustaining cash flow engines. Institutional buyers and private equity firms will either pass immediately or demand a grueling multi-year earnout tied to your personal performance.",
+      remedy: "Immediately build documented standard operating procedures (SOPs) and install a second-in-command who owns customer fulfillment and sales pipelines."
+    };
+  }
+
+  // 2. Dangerous Customer Concentration (Q7: >30% revenue)
+  if (answers['q7']?.id === 'q7_d') {
+    const isLocked = answers['q7b']?.id === 'q7b_a';
+    return {
+      category: "Severe Customer Concentration (>30% Revenue in One Account)",
+      impact: isLocked ? "Requires escrow holdbacks and 1.5x–2.0x multiple discount" : "Triggers steep 2.0x–3.0x multiple penalty and bank financing refusal",
+      diagnosis: "A single client generates over 30% of your total turnover. If that customer churns post-sale, the acquirer's debt service collapses. Bank lenders often refuse to finance acquisitions with over 25% single-customer exposure unless heavy escrow holdbacks are agreed.",
+      remedy: isLocked 
+        ? "Maintain your long-term contract while executing an aggressive customer acquisition sprint to dilute this account under 15% of annual revenue."
+        : "Immediately convert this major account into a multi-year binding contract with clear renewal and transition clauses."
+    };
+  }
+
+  // 3. Contracting Revenue Growth (Q3: Declining)
+  if (answers['q3']?.id === 'q3_a') {
+    return {
+      category: "Contracting Revenue Trajectory (The Multiple Killer)",
+      impact: "Hard score cap at 70/100 & heavy distressed acquisition discounts",
+      diagnosis: "Your top-line revenue is shrinking year-over-year. Buyers purchase future cash flow, not historical nostalgia. A declining business is treated as a turnaround risk, attracting bargain hunters who slash multiples and demand asset-sale pricing.",
+      remedy: "Eliminate low-margin product lines, restructure your pricing model, and establish 2 consecutive quarters of growth stabilization before going to market."
+    };
+  }
+
+  // 4. Owner Daily Operational Burnout (Q4: Over 40 hours)
+  if (answers['q4']?.id === 'q4_a') {
+    return {
+      category: "Founder Bottleneck (40+ Weekly Front-Line Hours)",
+      impact: "Reduces transferable enterprise value and delays exit timeline",
+      diagnosis: "You are spending 40+ hours per week working in the day-to-day operations rather than on strategic scale. If you are the chief firefighter, delivery manager, and problem-solver, the business cannot scale without you.",
+      remedy: "Conduct a time audit, delegate all level-1 and level-2 operational tasks, and empower your middle managers with clear decision-making authority."
+    };
+  }
+
+  // 5. 100% Transactional Revenue Drag (Q10: None / <20%)
+  if (answers['q10']?.id === 'q10_a' || answers['q10']?.id === 'q10_b') {
+    return {
+      category: "Transactional Revenue Drag (Starting at £0 Every Month)",
+      impact: "Depresses multiple to 3x–4x vs 7x–10x for recurring models",
+      diagnosis: "Over 80% of your revenue is transactional, meaning your sales team starts from zero on the first day of every month. Buyers pay the highest multiples in the world for contracted, predictable subscription cash flow.",
+      remedy: "Package your core products or services into recurring service-level agreements (SLAs), monthly retainers, or subscription maintenance contracts."
+    };
+  }
+
+  // 6. Key Employee Sales Dependency (Q9: Catastrophic loss)
+  if (answers['q9']?.id === 'q9_a') {
+    return {
+      category: "Key-Person Sales Vulnerability",
+      impact: "Creates severe post-closing flight risk and financing friction",
+      diagnosis: "If your top salesperson walks out, revenue suffers catastrophic damage. Acquirers will view the salesperson as the true business owner and discount your valuation accordingly.",
+      remedy: "Institutionalize sales playbooks, centralize lead generation into automated marketing systems, and implement equity-like phantom retention agreements."
+    };
+  }
+
+  // 7. Diligence & Bookkeeping Friction (Q15: No standard bookkeeping)
+  if (answers['q15']?.id === 'q15_a') {
+    return {
+      category: "Financial Diligence Fragility",
+      impact: "Causes over 50% of deal collapses during due diligence",
+      diagnosis: "Informal or shoebox bookkeeping destroys buyer trust and causes due diligence to drag on until deals fall apart or buyers aggressively renegotiate purchase price downward.",
+      remedy: "Migrate immediately to cloud accounting (Xero/QuickBooks) and hire an external CPA to perform formal year-end compilations and Quality of Earnings reviews."
+    };
+  }
+
+  // Default / Strong Profile
+  return {
+    category: "Operational Friction & Multiple Optimization",
+    impact: "Leaving 1.5x–2.5x multiple expansion on the table",
+    diagnosis: "Your foundational operations are solid, but small optimizations in recurring contracts, customer diversification, and middle-management autonomy will bridge the gap to a top-tier premium exit.",
+    remedy: "Focus on pushing all accounts to multi-year contracts, systematizing management reporting, and running a competitive M&A auction."
+  };
 };

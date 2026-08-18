@@ -35,7 +35,7 @@ export const QuestionCard = ({
     <div className={`glass-panel ${animClass}`}>
       {/* Category Pill */}
       <span className="stark-category">
-        Section {question.sectionNumber}: {question.section}
+        Diagnostic Phase {question.sectionNumber}: {question.section}
       </span>
 
       {/* Question Title & Subtitle */}
@@ -91,7 +91,7 @@ export const QuestionCard = ({
           onClick={handleNextClick}
           disabled={!selectedOptionId}
         >
-          {isLast ? 'View Final Assessment' : 'Continue'}
+          {isLast ? 'Generate Full Valuation & Diagnostic' : 'Continue Diagnostic'}
           <ArrowRight size={20} />
         </button>
       </div>

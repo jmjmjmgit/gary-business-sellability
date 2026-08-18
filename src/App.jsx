@@ -164,18 +164,36 @@ export default function App() {
 
       {/* Landing View */}
       {!isStarted && !isCompleted && (
-        <main className="glass-panel water-surface-tension-enter" style={{ textAlign: 'center', maxWidth: '780px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 1rem', background: 'rgba(42, 187, 210, 0.12)', border: '1px solid rgba(42, 187, 210, 0.3)', borderRadius: '100px', color: '#2ABAD2', fontSize: '0.85rem', fontWeight: 800, marginBottom: '1.25rem' }}>
-            ⏱️ Takes just 2–3 minutes to complete
+        <main className="glass-panel water-surface-tension-enter" style={{ textAlign: 'center', maxWidth: '800px' }}>
+          {/* EPI Hard Fact Banner */}
+          <div style={{ 
+            background: 'rgba(239, 68, 68, 0.12)', 
+            border: '1px solid rgba(239, 68, 68, 0.35)', 
+            borderRadius: '100px', 
+            padding: '0.45rem 1.2rem', 
+            color: '#B91C1C', 
+            fontSize: '0.86rem', 
+            fontWeight: 800, 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '0.5rem', 
+            marginBottom: '1.25rem' 
+          }}>
+            <span>⚠️</span>
+            <span>Fact: 70% to 80% of businesses prepared for sale NEVER actually sell. (Exit Planning Institute)</span>
           </div>
 
-          <h1 className="stark-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-            Is Your Business Transferable & Ready to Sell at a Premium Multiple?
+          <h1 className="stark-title" style={{ fontSize: '2.45rem', marginBottom: '1.1rem', lineHeight: 1.25 }}>
+            Would Anyone Really Want to Buy Your Business? And If They Do, What Is It Actually Worth?
           </h1>
 
-          <p className="stark-subtitle" style={{ maxWidth: '640px', margin: '0 auto 1.5rem auto', fontSize: '1.08rem' }}>
-            Discover your custom exit readiness score, identify hidden buyer risks, and receive a transformational roadmap to maximize your enterprise value.
+          <p className="stark-subtitle" style={{ maxWidth: '660px', margin: '0 auto 1.5rem auto', fontSize: '1.08rem' }}>
+            Take my 3-minute executive diagnostic to calculate your estimated £ valuation, discover your multiple tier, and pinpoint your #1 value killer before buyers do.
           </p>
+
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 1rem', background: 'rgba(42, 187, 210, 0.12)', border: '1px solid rgba(42, 187, 210, 0.3)', borderRadius: '100px', color: '#2ABAD2', fontSize: '0.85rem', fontWeight: 800, marginBottom: '1.75rem' }}>
+            ⏱️ Takes just 2–3 minutes to complete
+          </div>
 
           {/* Credibility Trust Banner */}
           <div style={{ 
@@ -196,34 +214,34 @@ export default function App() {
           </div>
 
           {/* Transformational Outcomes Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem', textAlign: 'left' }}>
-            <div style={{ background: 'rgba(255, 255, 255, 0.65)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.1rem', borderRadius: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '2rem', textAlign: 'left' }}>
+            <div style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.2rem', borderRadius: '16px' }}>
               <TrendingUp size={24} color="#2ABAD2" style={{ marginBottom: '0.5rem' }} />
               <div style={{ fontWeight: 800, fontSize: '0.98rem', color: '#0B0F19', marginBottom: '0.25rem' }}>
-                Your Sellability Score (1–100)
+                Your £ Valuation & Multiple
               </div>
               <div style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.45 }}>
-                Discover your exact exit readiness score and how acquirers value your business today.
+                Discover what buyers would realistically pay today versus what a tier-90 business commands.
               </div>
             </div>
 
-            <div style={{ background: 'rgba(255, 255, 255, 0.65)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.1rem', borderRadius: '16px' }}>
+            <div style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.2rem', borderRadius: '16px' }}>
               <ShieldCheck size={24} color="#2ABAD2" style={{ marginBottom: '0.5rem' }} />
               <div style={{ fontWeight: 800, fontSize: '0.98rem', color: '#0B0F19', marginBottom: '0.25rem' }}>
-                Practical Recommendations
+                Your #1 Value Killer Diagnosed
               </div>
               <div style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.45 }}>
-                Receive custom, actionable tips to eliminate owner reliance and boost sellability.
+                Pinpoint the exact single operational, founder, or concentration risk destroying your exit price.
               </div>
             </div>
 
-            <div style={{ background: 'rgba(255, 255, 255, 0.65)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.1rem', borderRadius: '16px' }}>
+            <div style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.2rem', borderRadius: '16px' }}>
               <BarChart3 size={24} color="#2ABAD2" style={{ marginBottom: '0.5rem' }} />
               <div style={{ fontWeight: 800, fontSize: '0.98rem', color: '#0B0F19', marginBottom: '0.25rem' }}>
-                Transformational Growth
+                The Valuation Gap Blueprint
               </div>
               <div style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.45 }}>
-                Unlock a clear blueprint to turn your business into a high-multiple, self-sustaining exit asset.
+                Calculate the exact £ money left on the table and unlock a roadmap to capture it.
               </div>
             </div>
           </div>
@@ -267,7 +285,7 @@ export default function App() {
               className="btn-teal-cta" 
               style={{ width: '100%', justifyContent: 'center', padding: '1.1rem 2rem' }}
             >
-              Begin Your Business Sellability Assessment
+              Begin Your Business Sellability Diagnostic
               <ArrowRight size={22} />
             </button>
           </form>
