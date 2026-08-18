@@ -242,7 +242,7 @@ export const OutcomeReport = ({ score, answers, flags, onRestart, leadInfo }) =>
           This Is What’s Standing Between Where You Are Now and a Premium Exit.
         </h2>
         <p className="unfiltered-cta-body">
-          If you want the unfiltered version — book thirty minutes with me. No sales pitch, no generic advice, just your numbers, your primary value killer, and a battle-tested roadmap to capture your {formatGBP(valData.valuationGap)} valuation gap.
+          If you want an unfiltered review, book thirty minutes directly with me. We will examine your specific numbers, address your primary value killer, and build a practical plan to capture your {formatGBP(valData.valuationGap)} valuation gap.
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
