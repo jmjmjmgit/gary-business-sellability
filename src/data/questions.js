@@ -588,49 +588,13 @@ export const getValueKillers = (answers, score) => {
   };
 };
 
-// CALL TO ACTION ROUTING ENGINE
-export const getCtaRouting = (answers, tierKey, isBrokenEconomics) => {
-  const exitTimeline = answers['q16']?.id;
-  
-  // Q16 = inside twelve months -> Call regardless of score
-  if (exitTimeline === 'q16_a') {
-    return {
-      type: "CALL",
-      headline: "Next Step: Book a 1:1 Private Advisory Call",
-      body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds/dollars, and the order I would fix it in if this were my business.",
-      buttonText: "Book your thirty minute review with Gary",
-      buttonLink: "https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true"
-    };
-  }
-
-  // Tier 3 or Tier 4 -> Call
-  if (tierKey === 'TIER_3' || tierKey === 'TIER_4' || tierKey === 'TIER_4_UNDER_1M') {
-    return {
-      type: "CALL",
-      headline: "Next Step: Book a 1:1 Private Advisory Call",
-      body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds/dollars, and the order I would fix it in if this were my business.",
-      buttonText: "Book your thirty minute review with Gary",
-      buttonLink: "https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true"
-    };
-  }
-
-  // Broken Economics -> Accelerator with note
-  if (isBrokenEconomics) {
-    return {
-      type: "ACCELERATOR",
-      headline: "The work comes before the exit.",
-      body: "Your business has structural margin issues that must be solved before any exit is viable. The Accelerator is where I take owners through fixing core unit economics and turning unprofitable volume into a healthy, valuable enterprise.",
-      buttonText: "Join the Business Accelerator",
-      buttonLink: "https://garyashworth.com/business-accelerator"
-    };
-  }
-
-  // Tier 1 or Tier 2 (more than 12 months out) -> Accelerator
+// CALL TO ACTION ENGINE (Directs all respondents to the 30-minute advisory call)
+export const getCtaRouting = () => {
   return {
-    type: "ACCELERATOR",
-    headline: "The work comes before the exit.",
-    body: "Your score says the job right now is building the thing a buyer would want, and that is months of work rather than a phone call. The Accelerator is where I take owners through it, in order, using the same checklist I run over any business before I buy it.",
-    buttonText: "Join the Business Accelerator",
-    buttonLink: "https://garyashworth.com/business-accelerator"
+    type: "CALL",
+    headline: "Next Step: Book a 1:1 Private Advisory Call",
+    body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds/dollars, and the order I would fix it in if this were my business.",
+    buttonText: "Book your thirty minute review with Gary",
+    buttonLink: "https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true"
   };
 };

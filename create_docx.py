@@ -416,19 +416,13 @@ def create_document():
     add_h1("6. Where Each Result Leads (Call to Action Routing)")
     
     add_callout(
-        "ROUTING RULES:\n"
-        "• Q16 = inside twelve months (any tier) OR Tier 3/4 ➔ Route to Call\n"
-        "• Tier 1 or Tier 2 (exit > 12 months out) ➔ Route to Accelerator\n"
-        "• Broken Economics ➔ Route to Accelerator\n\n"
-        "CTA FOR THE CALL:\n"
+        "ROUTING RULE:\n"
+        "• All respondents across all tiers and scenarios are directed to the 30-minute private advisory call.\n\n"
+        "CTA FOR THE PRIVATE ADVISORY CALL:\n"
         "Headline: Next Step: Book a 1:1 Private Advisory Call\n"
         "Body: If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds/dollars, and the order I would fix it in if this were my business.\n"
-        "Button: Book your thirty minute review with Gary (Link: https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true)\n\n"
-        "CTA FOR THE ACCELERATOR:\n"
-        "Headline: The work comes before the exit.\n"
-        "Body: Your score says the job right now is building the thing a buyer would want, and that is months of work rather than a phone call. The Accelerator is where I take owners through it, in order, using the same checklist I run over any business before I buy it.\n"
-        "Button: Join the Business Accelerator (Link: https://garyashworth.com/business-accelerator)",
-        title="Conversion Routing Logic:",
+        "Button: Book your thirty minute review with Gary (Link: https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true)",
+        title="Conversion Action (All Cases):",
         border_color="2ABAD2",
         fill_color="F8FAFC"
     )

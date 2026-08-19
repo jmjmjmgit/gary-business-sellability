@@ -312,15 +312,8 @@ The fundamentals here are as strong as I see them. Scale is the only thing holdi
 
 ## 6. Where each result leads (Call to Action Routing)
 
-- **Q16 = inside twelve months (any tier)** OR **Tier 3 or 4**:
-  - *Headline*: Thirty minutes, your numbers, no pitch.
-  - *Body*: If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds, and the order I would fix it in if this were my business. No sales pitch and no generic advice, because neither of us has time for it.
-  - *Button*: Book your thirty minute review with Gary
-- **Tier 1 or Tier 2 (more than 12 months out)**:
-  - *Headline*: The work comes before the exit.
-  - *Body*: Your score says the job right now is building the thing a buyer would want, and that is months of work rather than a phone call. The Accelerator is where I take owners through it, in order, using the same checklist I run over any business before I buy it.
-  - *Button*: Join the Business Accelerator
-- **Broken Economics**:
-  - *Headline*: The work comes before the exit.
-  - *Body*: Your business has structural margin issues that must be solved before any exit is viable. The Accelerator is where I take owners through fixing core unit economics and turning unprofitable volume into a healthy, valuable enterprise.
-  - *Button*: Join the Business Accelerator
+**All respondents in all cases**:
+- **Headline**: Next Step: Book a 1:1 Private Advisory Call
+- **Body**: If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds/dollars, and the order I would fix it in if this were my business.
+- **Button**: Book your thirty minute review with Gary
+- **Destination Link**: `https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true`
