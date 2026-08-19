@@ -29,7 +29,7 @@ def create_document():
     # Title
     p_title = doc.add_paragraph()
     p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run_title = p_title.add_run("BUSINESS SELLABILITY DIAGNOSTIC")
+    run_title = p_title.add_run("GARY ASHWORTH'S BUSINESS SELLABILITY ASSESSMENT")
     run_title.font.name = 'Arial'
     run_title.font.size = Pt(22)
     run_title.font.bold = True
@@ -151,11 +151,11 @@ def create_document():
     
     p = doc.add_paragraph()
     p.add_run("Subheadline: ").bold = True
-    p.add_run("Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price.")
+    p.add_run("Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations")
 
     p = doc.add_paragraph()
     p.add_run("Duration Badge: ").bold = True
-    p.add_run("About four minutes. No jargon.")
+    p.add_run("2–3 minutes to complete")
 
     p = doc.add_paragraph()
     p.add_run("Credibility Block: ").bold = True

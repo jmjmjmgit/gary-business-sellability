@@ -109,7 +109,7 @@ export default function App() {
       <header className="header-brand">
         <div className="brand-badge">
           <span className="teal-dot" />
-          GARY ASHWORTH &bull; BUSINESS SELLABILITY DIAGNOSTIC
+          GARY ASHWORTH'S BUSINESS SELLABILITY ASSESSMENT
         </div>
 
         {(isStarted || isCompleted) && (
@@ -146,11 +146,11 @@ export default function App() {
           </h1>
 
           <p className="stark-subtitle" style={{ maxWidth: '680px', margin: '0 auto 1.5rem auto', fontSize: '1.08rem' }}>
-            Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price.
+            Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations
           </p>
 
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 1.1rem', background: 'rgba(42, 187, 210, 0.12)', border: '1px solid rgba(42, 187, 210, 0.3)', borderRadius: '100px', color: '#2ABAD2', fontSize: '0.85rem', fontWeight: 800, marginBottom: '1.75rem' }}>
-            ⏱️ About four minutes. No jargon.
+            2–3 minutes to complete
           </div>
 
           {/* Credibility Block */}

@@ -28,6 +28,12 @@ Read this before building anything else. The scoring in version 1 did not add up
 | Q10 = Over 50% | Adds 0.5x to the valuation multiple, after the size cap is applied. |
 | Q1 = Under 1 million | Multiple capped at 4.0x regardless of score. |
 
+- **Header Branding Pill**: `• GARY ASHWORTH'S BUSINESS SELLABILITY ASSESSMENT`
+- **Banner Statistic**: `⚠️ Between 70% and 80% of businesses that go to market never sell. Source: Exit Planning Institute.`
+- **Headline**: `If you put your business on the market next Monday, what would a buyer really pay for it?`
+- **Subheadline**: `Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations`
+- **Duration Badge**: `2–3 minutes to complete`
+
 ---
 
 ## 1. Landing page and lead capture
