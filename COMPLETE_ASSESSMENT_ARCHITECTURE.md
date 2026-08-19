@@ -1,248 +1,326 @@
-# Business Sellability Assessment Tool
-## Master Diagnostic Specification, Valuation Engine, Logic Rules & Outcome Architecture
+# BUSINESS SELLABILITY DIAGNOSTIC
+
+**Gary Ashworth** · Master build specification, version 2. Scoring engine, valuation model, diagnosis logic and final copy.
+
+_Prepared 18 August 2026. Supersedes the version 1 master architecture. All customer facing copy in this document is final and written to be pasted straight into the build._
 
 ---
 
-### 1. Landing View & Lead Capture Copy
+## 0. How the engine works
 
-- **Header Branding Pill**: `• GARY ASHWORTH • YOUR BUSINESS SELLABILITY ASSESSMENT`
-- **EPI Hard Fact Banner**: `⚠️ Fact: 70% to 80% of businesses prepared for sale NEVER actually sell. (Exit Planning Institute)`
-- **Duration Badge**: `⏱️ Takes just 2–3 minutes to complete`
-- **Main Headline**: `Would Anyone Really Want to Buy Your Business? And If They Do, What Is It Actually Worth?`
-- **Main Subtitle**: `Take my 3-minute executive diagnostic to calculate your estimated £ valuation, discover your multiple tier, and pinpoint your #1 value killer before buyers do.`
-- **Credibility Trust Banner**: `Based on my 40+ years of experience buying, scaling, and selling 30+ businesses, combined with proven M&A deal standards.`
-- **Transformational Outcome Cards**:
-  1. **Your £ Valuation & Multiple**: Discover what buyers would realistically pay today versus what a tier-90 business commands.
-  2. **Your #1 Value Killer Diagnosed**: Pinpoint the exact single operational, founder, or concentration risk destroying your exit price.
-  3. **The Valuation Gap Blueprint**: Calculate the exact £ money left on the table and unlock a roadmap to capture it.
-- **Lead Capture Form Inputs**:
-  - `Full Name` (text input, required)
-  - `Work Email Address` (email input, required)
-- **Primary CTA Button**: `Begin Your Business Sellability Diagnostic →`
+Read this before building anything else. The scoring in version 1 did not add up to 100, which meant roughly half of all respondents would have been told they owned a trophy business. Everything below assumes the corrected model.
 
----
+### Scoring
 
-### 2. Complete Question Architecture & Logic Rules
+- Fifteen scored questions plus three conditionals. Raw points total 174 at maximum.
+- Final score = (raw points / 174) x 100, rounded to one decimal, then clamped between 0 and 100.
+- The recurring revenue bonus is applied to the valuation multiple, not to the score. Version 1 applied a 1.15x multiplier to the score on top of the 12 points already awarded for the same answer, which counted it twice and pushed scores past 100.
+- Question 16 carries no points. It routes the call to action only.
+- The estimated revenue and margin figures attached to each answer are backend values. They must never appear on screen next to the answer options, or people will work out how to game the result.
 
-#### **SECTION 1: Financial Foundations**
+### Hard rules
 
-##### **Q1**: What is your top line revenue over the trailing twelve months (TTM)?
-- **Subtitle**: *Revenue scale establishes your baseline valuation tier and determines which buyer pools (strategic vs. private equity) will compete for your asset.*
-- **Choices**:
-  - `Under £1 Million` (5 pts) — *Estimated Median Revenue: £650k*
-  - `£1 Million to £3 Million` (10 pts) — *Estimated Median Revenue: £2.0M*
-  - `£3 Million to £10 Million` (15 pts) — *Estimated Median Revenue: £6.0M*
-  - `Over £10 Million` (20 pts) — *Estimated Median Revenue: £15.0M*
-
-##### **Q2**: What is your average net profit margin?
-- **Subtitle**: *Healthy net margins demonstrate your operational efficiency and generate the transferable EBITDA buyers actually pay for.*
-- **Choices**:
-  - `Negative or Breakeven` (0 pts) **[Triggers Conditional Branch Q2B]** — *Estimated Margin: 3%*
-  - `1% to 10%` (5 pts) — *Estimated Margin: 7.5%*
-  - `11% to 20%` (10 pts) — *Estimated Margin: 15%*
-  - `Over 20%` (15 pts) — *Estimated Margin: 25%*
-
-##### **Q2B (Conditional Branch — Triggered if Q2 is Negative/Breakeven)**: What is the primary reason for your negative or breakeven profit margin?
-- **Subtitle**: *Differentiating deliberate growth investment from systemic weakness determines whether buyers see upside or operational risk.*
-- **Choices**:
-  - `Deliberate reinvestment for aggressive growth` (+3 pts restored)
-  - `Temporary market conditions` (+1 pt restored)
-  - `Poor pricing structure` (0 pts)
-  - `Structural business issues` (-5 pts penalty)
-
-##### **Q3**: What is your revenue growth rate year over year (YoY)?
-- **Subtitle**: *Growth trajectory is the ultimate multiplier. Acquirers severely discount or walk away from contracting businesses.*
-- **Choices**:
-  - `Declining` (0 pts) **[Triggers Hard Score Cap: Maximum Final Score Capped at 70/100]**
-  - `Flat (0% growth)` (5 pts)
-  - `Growing 1% to 15%` (10 pts)
-  - `Growing over 15%` (15 pts)
+| Trigger | Rule |
+|---|---|
+| Q3 = Declining | Final score capped at 55. This puts a shrinking business at the top of Tier 2 at best. |
+| Q5 = Sales drop to zero | Sets the Owner Dependent flag. Suppresses all ready to sell language in the result, whatever the score. |
+| Q2 = Negative or breakeven AND Q2B = Structural issues | Suppress the pound valuation entirely. Show the Broken Economics result instead. |
+| Q10 = Over 50% | Adds 0.5x to the valuation multiple, after the size cap is applied. |
+| Q1 = Under 1 million | Multiple capped at 4.0x regardless of score. |
 
 ---
 
-#### **SECTION 2: Owner Dependence**
+## 1. Landing page and lead capture
 
-##### **Q4**: How many hours a week do you spend on front-line daily operations?
-- **Subtitle**: *The more daily operations depend directly on you, the harder it is for a buyer to step in without you.*
-- **Choices**:
-  - `Over 40 hours per week` (0 pts)
-  - `20 to 40 hours per week` (3 pts)
-  - `5 to 20 hours per week` (7 pts)
-  - `Under 5 hours per week` (10 pts)
+> **Banner statistic: Between 70% and 80% of businesses that go to market never sell. Source: Exit Planning Institute.**
 
-##### **Q5**: What happens to your sales if you step away completely for 3 months?
-- **Subtitle**: *Tests whether your revenue engine is an institutional machine or a personal rolodex.*
-- **Choices**:
-  - `Sales drop to zero` (0 pts) **[Triggers Flag: Hard to Sell to Institutional / PE Buyers]**
-  - `Sales decrease by half` (3 pts)
-  - `Sales stay flat` (7 pts)
-  - `Sales actually increase` (10 pts)
+**HEADLINE**
+> If you put your business on the market next Monday, what would a buyer really pay for it?
 
-##### **Q6**: Do you have a second-in-command who can run daily operations autonomously?
-- **Subtitle**: *A proven management team transforms your business from a founder-dependent job into a high-multiple asset.*
-- **Choices**:
-  - `No second-in-command` (0 pts)
-  - `Yes, but they are very new` (3 pts)
-  - `Yes, with some experience` (7 pts)
-  - `Yes, with a long proven track record` (+12 bonus pts)
+**SUBHEADLINE**
+> Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price.
 
----
+**DURATION BADGE**
+> About four minutes. No jargon.
 
-#### **SECTION 3: Concentration Risks**
+**CREDIBILITY BLOCK**
+> Forty years of buying, building and selling businesses. Thirty of them, give or take, and a fair few lessons I paid for the hard way.
 
-##### **Q7**: What percentage of your total revenue comes from your single largest customer?
-- **Subtitle**: *High customer concentration is the #1 deal-killer during acquirer financing and due diligence.*
-- **Choices**:
-  - `Under 5%` (10 pts)
-  - `5% to 15%` (7 pts)
-  - `16% to 30%` (3 pts)
-  - `Over 30%` (-5 pts penalty) **[Triggers Conditional Branch Q7B]**
+**SECONDARY CREDIBILITY BLOCK, USE UNDER THE FOLD OR ON THE RESULTS PAGE**
+> I assumed my tech recruitment business would sell for eight to ten times EBITDA, because that is what the sector had always achieved. By the time I came to sell, the going rate was five. Nobody had told me the market had moved, and that gap cost me millions. This diagnostic exists so it does not happen to you.
 
-##### **Q7B (Conditional Branch — Triggered if Q7 is Over 30%)**: Is that major customer locked into a binding contract or agreement?
-- **Subtitle**: *Contractual terms determine how securely your concentrated cash flow is protected.*
-- **Choices**:
-  - `Locked into a long-term binding contract` (+3 pts penalty softened)
-  - `Operates on a month-to-month basis` (0 pts)
-  - `Pays upfront in advance` (+1 pt)
-  - `Consistently pays late` (-3 pts penalty)
+**WHAT YOU GET AT THE END**
+- Your number. What a buyer would likely pay today, and the multiple your business is earning.
+- Your biggest value killer. The single risk taking the most money off your price, named and costed.
+- Your gap. The difference in pounds between what you would get today and the ceiling for a business your size, with the order I would fix things in.
 
-##### **Q8**: How easy would it be for you to replace your primary supplier or vendor?
-- **Subtitle**: *Single-point-of-failure suppliers create operational fragility that buyers discount.*
-- **Choices**:
-  - `Impossible due to exclusive patents or single source` (0 pts)
-  - `Extremely difficult` (2 pts)
-  - `Moderately difficult but possible` (6 pts)
-  - `Very easy with multiple vendors available` (10 pts)
-
-##### **Q9**: What would happen to your business if your top salesperson left tomorrow?
-- **Subtitle**: *Measures whether your sales system belongs to the business or resides in an individual's head.*
-- **Choices**:
-  - `Catastrophic loss of revenue` (0 pts)
-  - `Significant revenue drop for months` (3 pts)
-  - `Temporary dip in sales` (7 pts)
-  - `Negligible impact because sales rely on automated marketing systems` (10 pts)
+**FORM FIELDS**
+- Full name, required.
+- Work email, required.
+- Company name, optional.
+- Button copy: Start the diagnostic
 
 ---
 
-#### **SECTION 4: Quality of Revenue & Operations**
+## 2. Questions and logic
 
-##### **Q10**: What portion of your sales comes from automatic subscriptions or hard contracts?
-- **Subtitle**: *Predictable, guaranteed future cash flow commands the highest valuation multiples in the M&A market.*
-- **Choices**:
-  - `None (100% transactional)` (0 pts)
-  - `Under 20%` (4 pts)
-  - `21% to 50%` (8 pts)
-  - `Over 50%` (+12 pts) **[Triggers 1.15x Recurring Revenue Multiplier to Running Score]**
+### Section 1: The money
 
-##### **Q11**: How would your customers react to a 10% price increase tomorrow?
-- **Subtitle**: *Pricing power demonstrates customer retention, brand defensibility, and competitive moat.*
-- **Choices**:
-  - `Massive customer defection` (0 pts)
-  - `Heavy complaints with some customer churn` (3 pts)
-  - `Minor complaints but mostly high customer retention` (7 pts)
-  - `Zero pushback because the product is highly specialized` (10 pts)
+#### Q1. What was your turnover over the last twelve months?
+_Revenue decides which buyers will look at you at all, and it sets the ceiling on what any of them will pay._
+- Under 1 million (5 pts, backend estimate 650k)
+- 1 million to 3 million (10 pts, backend estimate 2.0m)
+- 3 million to 10 million (15 pts, backend estimate 6.0m)
+- Over 10 million (20 pts, backend estimate 15.0m)
 
-##### **Q12**: How do your gross margins compare to your industry average?
-- **Subtitle**: *Superior gross margins prove pricing leverage and protect profits during economic contractions.*
-- **Choices**:
-  - `Significantly lower than industry average` (0 pts)
-  - `Slightly lower than industry average` (3 pts)
-  - `About the same as industry average` (7 pts)
-  - `Significantly higher than industry average` (10 pts)
+#### Q2. What is your net profit margin before your own salary, interest and tax?
+_This is the number buyers price off. Turnover is what you tell people at dinner, margin is what somebody buys._
+- Negative or breakeven (0 pts, triggers Q2B, backend estimate 3%)
+- 1% to 10% (5 pts, backend estimate 7.5%)
+- 11% to 20% (10 pts, backend estimate 15%)
+- Over 20% (15 pts, backend estimate 25%)
 
-##### **Q13**: When do your customers typically pay for your goods or services?
-- **Subtitle**: *Negative working capital cycles eliminate buyer debt burden and drastically increase enterprise value.*
-- **Choices**:
-  - `Net 60 days or more` (0 pts)
-  - `Net 30 days` (3 pts)
-  - `Upon delivery` (6 pts)
-  - `Upfront before delivery` (10 pts)
+#### Q2B (conditional). Why is the business not making money?
+_Losing money on purpose whilst you grow is a very different conversation to losing money because something is broken._
+- Deliberate reinvestment to grow faster (+3 pts)
+- Temporary market conditions (+1 pt)
+- Pricing is wrong (0 pts)
+- Structural problems in the business (-5 pts, suppresses the pound valuation)
 
-##### **Q14**: How likely are your customers to refer a friend or leave a positive review?
-- **Subtitle**: *Customer loyalty indicates organic word-of-mouth momentum and lowers customer acquisition costs for acquirers.*
-- **Choices**:
-  - `Very unlikely` (0 pts)
-  - `Somewhat unlikely` (3 pts)
-  - `Neutral` (6 pts)
-  - `Highly likely (Strong NPS)` (10 pts)
+#### Q3. How is turnover moving year on year?
+_Buyers are paying for the next three years of profit, and a falling line tells them the next three will be worse than the last three._
+- Going backwards (0 pts, caps final score at 55)
+- Flat (5 pts)
+- Growing 1% to 15% (10 pts)
+- Growing more than 15% (15 pts)
 
-##### **Q15**: How are your business financial records maintained?
-- **Subtitle**: *Clean, verified financial records shorten diligence timelines and prevent buyers from chipping away at your price.*
-- **Choices**:
-  - `No standard bookkeeping / shoebox accounting` (0 pts)
-  - `Standard internal software (e.g., QuickBooks, Xero)` (4 pts)
-  - `External CPA compilation & tax returns` (7 pts)
-  - `Full audited financials by independent accounting firm` (10 pts)
+### Section 2: How much of it is you
+
+#### Q4. How many hours a week do you spend on the day to day work?
+_The more of the daily running that goes through you, the harder it is for anyone else to take over._
+- More than 40 (0 pts)
+- 20 to 40 (3 pts)
+- 5 to 20 (7 pts)
+- Under 5 (10 pts)
+
+#### Q5. What happens to sales if you disappear for three months?
+_This is the question that separates a business from a well paid job._
+- They stop (0 pts, sets Owner Dependent flag)
+- They halve (3 pts)
+- They hold steady (7 pts)
+- They keep growing, because the team runs it (10 pts)
+
+#### Q6. Do you have a number two who can run the place without you?
+_A proper second in command moves your final price more than almost anything else on this list._
+- No (0 pts)
+- Yes, but they are new (3 pts)
+- Yes, with some experience (7 pts)
+- Yes, and they have a long track record (12 pts)
+
+### Section 3: Where it could all go wrong
+
+#### Q7. What share of turnover comes from your largest customer?
+_One big customer is the thing that most often kills a deal at the last minute, usually the week the buyer's bank gets involved._
+- Under 5% (10 pts)
+- 5% to 15% (7 pts)
+- 16% to 30% (3 pts)
+- Over 30% (-5 pts, triggers Q7B)
+
+#### Q7B (conditional). Is that customer on a contract?
+_A signed long term agreement changes how a buyer views the same concentration._
+- Long term binding contract (+3 pts)
+- Rolling month to month (0 pts)
+- Pays upfront (+1 pt)
+- Pays late, every time (-3 pts)
+
+#### Q8. How easily could you replace your main supplier?
+_A supplier you cannot replace is somebody else's hand on your margin._
+- One supplier, no realistic alternative (0 pts, triggers Q8B)
+- Very difficult, it would cost us time and margin (2 pts)
+- Doable with some disruption (6 pts)
+- Easy, several suppliers compete for our business (10 pts)
+
+#### Q8B (conditional). Is that single source something you own or control, such as an exclusive licence, a patent or an agreement nobody else can get?
+_Owning the only route to market is an asset. Being hostage to somebody else's is a risk._
+- Yes, we own or control it (+8 pts)
+- No, we are dependent on them (0 pts)
+
+#### Q9. What happens if your best salesperson resigns tomorrow?
+_This tells a buyer whether the sales system belongs to the business or lives in one person's head._
+- We would lose a serious chunk of revenue (0 pts)
+- A big drop for several months whilst we recover (3 pts)
+- A dip, then back to normal (7 pts)
+- Barely noticed, the leads and the process belong to the business (10 pts)
+
+### Section 4: Quality of the earnings
+
+#### Q10. How much of your revenue is on subscription or contract?
+_Contracted income is the closest thing to guaranteed money a buyer can see, and they pay a premium for it._
+- None, every sale starts from scratch (0 pts)
+- Under 20% (4 pts)
+- 21% to 50% (8 pts)
+- Over 50% (12 pts, adds 0.5x to the multiple)
+
+#### Q11. How would your customers react to a 10% price rise tomorrow?
+_If you can put prices up without losing people, you have something they cannot get elsewhere._
+- We would lose a lot of them (0 pts)
+- Plenty of complaints and some would go (3 pts)
+- Some grumbling, most would stay (7 pts)
+- Nobody would blink (10 pts)
+
+#### Q12. How do your gross margins compare with others in your sector?
+_Margin above your sector average tells a buyer you have pricing power and room to absorb a bad year._
+- Well below average (0 pts)
+- Slightly below (3 pts)
+- About the same (7 pts)
+- Well above average (10 pts)
+
+#### Q13. When do your customers pay you?
+_Getting paid before you deliver means a buyer needs less cash to run the place, and that shows up in the price._
+- 60 days or more (0 pts)
+- 30 days (3 pts)
+- On delivery (6 pts)
+- Upfront, before we do the work (10 pts)
+
+#### Q14. How likely are your customers to recommend you?
+_Customers who bring you more customers keep your acquisition cost down, and a buyer will notice._
+- Very unlikely (0 pts)
+- Unlikely (3 pts)
+- Neither one way nor the other (6 pts)
+- Very likely, they do it already (10 pts)
+
+#### Q15. How are your accounts kept?
+_Messy books give a buyer an excuse to chip away at your price during due diligence, and they will take it._
+- Shoebox, or whatever the accountant can piece together (0 pts)
+- Xero or QuickBooks, kept up to date (4 pts)
+- Accountant prepared and filed each year (7 pts)
+- Fully audited by an independent firm (10 pts)
+
+### Section 5: You
+
+#### Q16. When do you want to be out?
+_This one carries no points. It changes what I would tell you to do first._
+- Inside twelve months (routes to call)
+- One to three years (routes by tier)
+- Three to five years (routes by tier)
+- No fixed plan, I just want to know where I stand (routes by tier)
 
 ---
 
-### 3. Valuation & Multiple Calculation Engine
+## 3. Valuation engine
 
-1. **Estimated Baseline EBITDA**:
-   - `EstimatedEbitda = RevenueEstimate * MarginEstimate`
-2. **Current Valuation Multiplier based on Score**:
-   - Score 0–50: `~2.0x EBITDA` (Owner-dependent job)
-   - Score 51–70: `~3.8x EBITDA` (Sellable with discounts)
-   - Score 71–89: `~5.8x EBITDA` (Marketable asset)
-   - Score 90–100: `~8.5x EBITDA` (Premium exit asset)
-3. **Current Estimated Valuation**:
-   - `CurrentValuation = EstimatedEbitda * CurrentMultiple`
-4. **Tier 90+ Exit Potential Valuation**:
-   - `PotentialValuation = EstimatedEbitda * 8.5`
-5. **The Valuation Gap (Money Left on the Table)**:
-   - `ValuationGap = Math.max(0, PotentialValuation - CurrentValuation)`
+1. **Earnings**: Adjusted EBITDA = revenue estimate from Q1 x margin estimate from Q2
+2. **Score**: (raw points / 174) x 100, clamped 0 to 100, then apply the Q3 cap of 55 if it fires
+3. **Base multiple**: 0 to 39.9 = 2.0x, 40 to 61.9 = 3.8x, 62 to 79.9 = 5.8x, 80 to 100 = 8.5x
+4. **Recurring uplift**: Add 0.5x if Q10 = over 50%
+5. **Size cap**: Under 1m capped at 4.0x, 1m to 3m at 5.5x, 3m to 10m at 7.0x, over 10m at 8.5x
+6. **Today's value**: Adjusted EBITDA x final multiple
+7. **Ceiling**: Adjusted EBITDA x the size cap for their revenue band
+8. **The gap**: Ceiling minus today's value
 
 ---
 
-### 4. Dynamic #1 Primary Value Killer Diagnostic Logic
+## 4. The number one value killer (Ordered priority)
 
-Instead of a generic tier blurb, the diagnostic identifies the single biggest bottleneck and provides a deep-dive diagnosis:
-
-1. **Founder Trap (Severe Key-Person Risk)** (Triggered if Q5 = Sales drop to zero):
-   - *Impact*: Cuts EBITDA multiple by up to 50% & triggers 3–5 year earnouts.
-   - *Diagnosis*: Sales drop to zero if you step away for 3 months. In M&A, buyers do not buy jobs — they buy self-sustaining cash flow engines. Institutional buyers and private equity firms will either pass immediately or demand a grueling multi-year earnout.
-   - *Remedy*: Immediately build documented standard operating procedures (SOPs) and install a second-in-command who owns customer fulfillment and sales pipelines.
-2. **Severe Customer Concentration (>30% Revenue in One Account)** (Triggered if Q7 = Over 30%):
-   - *Impact*: Triggers 2.0x–3.0x multiple penalty and bank financing refusal.
-   - *Diagnosis*: Over 30% of your revenue is held by a single customer. If that client leaves post-sale, the buyer's debt service collapses. Bank lenders often refuse to finance acquisitions with over 25% single-customer exposure.
-   - *Remedy*: Lock this major customer into a multi-year SLA and execute a targeted sales sprint to dilute their share below 15%.
-3. **Contracting Revenue Trajectory** (Triggered if Q3 = Declining):
-   - *Impact*: Hard score cap at 70/100 & heavy distressed acquisition discounts.
-   - *Diagnosis*: Your revenue is contracting year-over-year. Buyers purchase future cash flow, not historical nostalgia. A declining business is treated as a turnaround risk.
-   - *Remedy*: Eliminate low-margin product lines, restructure your pricing, and demonstrate 2 consecutive quarters of growth stabilization.
-4. **Founder Bottleneck (40+ Weekly Front-Line Hours)** (Triggered if Q4 = Over 40 hours):
-   - *Impact*: Reduces transferable enterprise value and delays exit timeline.
-   - *Diagnosis*: You are spending 40+ hours per week working in the day-to-day operations rather than on strategic scale.
-   - *Remedy*: Conduct a time audit, delegate all level-1/2 operational tasks, and empower middle managers.
-5. **Transactional Revenue Drag** (Triggered if Q10 = None or Under 20%):
-   - *Impact*: Depresses multiple to 3x–4x vs 7x–10x for recurring models.
-   - *Diagnosis*: Over 80% of your revenue is transactional, meaning you start from zero every month.
-   - *Remedy*: Package core services into recurring SLAs, monthly retainers, or subscription maintenance contracts.
-6. **Key-Person Sales Vulnerability** (Triggered if Q9 = Catastrophic loss):
-   - *Impact*: Creates severe post-closing flight risk and financing friction.
-   - *Diagnosis*: If your top salesperson leaves, revenue collapses. Acquirers will view the salesperson as the true owner.
-   - *Remedy*: Institutionalize sales playbooks, centralize lead gen into automated marketing systems, and install equity-like retention agreements.
-7. **Financial Diligence Fragility** (Triggered if Q15 = No standard bookkeeping):
-   - *Impact*: Causes over 50% of deal collapses during due diligence.
-   - *Diagnosis*: Informal bookkeeping destroys buyer trust and causes due diligence to drag on until deals fall apart.
-   - *Remedy*: Migrate immediately to cloud accounting (Xero/QuickBooks) and hire an external CPA for Quality of Earnings reviews.
-
----
-
-### 5. Peer Percentile Benchmark Rankings
-
-- Score < 45: Higher than 24% of tested businesses
-- Score 45–59: Higher than 48% of tested businesses
-- Score 60–74: Higher than 69% of tested businesses
-- Score 75–87: Higher than 86% of tested businesses
-- Score 88–94: Higher than 94% of tested businesses
-- Score 95–100: Top 2% (Higher than 98% of tested businesses)
+1. **You are the business** (Q5 = sales stop)
+   - *Cost*: Halves the multiple and puts you on an earn out for three to five years
+   - *Diagnosis*: Sales stop if you step away for three months, which means the business is you, and nobody can buy you. A trade buyer will walk. A private equity buyer will make you an offer with most of the money tied to an earn out that keeps you working for another three to five years to collect it.
+   - *Fix*: Write down how the work gets done, one process at a time. Hand your ten biggest accounts to somebody else over the next six months. Get one person owning delivery and one owning the pipeline, and stay out of both.
+2. **One customer holds the keys** (Q7 = over 30%)
+   - *Cost*: Two to three turns off the multiple, and most lenders will not fund the deal at all
+   - *Diagnosis*: More than thirty percent of your turnover sits in one account. Ask yourself what happens to a buyer if that client leaves the month after completion.
+   - *Fix*: Get that client onto a multi year agreement with proper notice periods, and put a serious push behind new business until they sit under fifteen percent.
+3. **The line is going backwards** (Q3 = declining)
+   - *Cost*: Score capped at 55 and a turnaround discount on top
+   - *Diagnosis*: Turnover is going backwards. Buyers price the next three years, and a falling line tells them the next three are worse than the last three.
+   - *Fix*: Cut the lines that make no money, put prices up where the market lets you, and get two consecutive quarters of growth on the board.
+4. **The numbers do not work** (Q2 = negative/breakeven AND Q2B = structural problems)
+   - *Cost*: No earnings multiple applies. Asset value only
+   - *Diagnosis*: The business is not making money and the reason is structural. There is no earnings multiple to apply to a business that does not earn.
+   - *Fix*: Work out which customers and which product lines make you money, and be willing to lose the ones that do not.
+5. **There is nobody behind you** (Q6 = no number two)
+   - *Cost*: One to two turns off the multiple
+   - *Diagnosis*: There is nobody who can run the place without you. That one hire usually moves the final price more than a year of extra sales does.
+   - *Fix*: Hire or promote somebody into the number two seat this quarter, give them real authority rather than the title.
+6. **Your books will not survive diligence** (Q15 = shoebox)
+   - *Cost*: Five to fifteen percent knocked off during diligence, plus months of delay
+   - *Diagnosis*: Your records will not stand up to a proper look. Every number a buyer cannot trace becomes a reason to pay you less.
+   - *Fix*: Get twenty four months of clean, reconciled accounts prepared properly.
+7. **Every pound has to be won again** (Q10 = none)
+   - *Cost*: One to two turns off the multiple
+   - *Diagnosis*: None of your revenue renews on its own, so every year starts at zero.
+   - *Fix*: Find the part of what you do that customers need every month, price it separately, and put your best accounts onto twelve month agreements.
+8. **You cannot move your prices** (Q11 = we would lose a lot of them)
+   - *Cost*: Signals a commodity position, which caps the multiple
+   - *Diagnosis*: A ten percent price rise would cost you customers, which tells a buyer you are competing on price against people who can undercut you.
+   - *Fix*: Work out what you do that the cheap option does not, put it in front of customers, and test a price rise on your ten best accounts.
 
 ---
 
-### 6. Unfiltered Advisory Call & Accelerator CTAs
+## 5. Result tiers
 
-- **Card Headline**: `This Is What’s Standing Between Where You Are Now and a Premium Exit.`
-- **Body**: `If you want the unfiltered version — book thirty minutes with me. No sales pitch, no generic advice, just your numbers, your primary value killer, and a battle-tested roadmap to capture your £ valuation gap.`
-- **Primary CTA Button**: `Book 30-Min Unfiltered Valuation Review With Gary →`
-- **Secondary Link**: `Or join Gary's Business Accelerator (£/mo): https://garyashworth.com/business-accelerator`
+### Tier 1. You own a job (score 0 to 39.9, around 2.0x)
+**Right now a buyer sees a demanding job with your name on it**
+Buyers want a business that runs whether or not you turn up. At this score they would be buying themselves a job, and most of them already have one.
+
+**Roadmap**:
+1. Write down how the core work gets done, one process at a time, starting with whatever only you know.
+2. Promote or hire somebody to run delivery and the team day to day.
+3. Get leads coming in through a system rather than through your phone.
+4. Move your key client relationships onto your people over six months, and stay off the calls.
+
+### Tier 2. Sellable, and the price gets chipped (score 40 to 61.9, around 3.8x)
+**You could sell this, and you would watch a buyer take money off you for six weeks**
+There is a real business here and somebody would buy it. You would also spend the back end of the process watching a buyer knock the price down for risks you could have dealt with beforehand.
+
+**Roadmap**:
+1. Bring your largest customer under fifteen percent of turnover.
+2. Get your top accounts onto one to three year agreements with clear renewal terms.
+3. Sort out contracts, notice periods and retention for the people a buyer would worry about losing.
+4. Clean up two years of accounts now, whilst you have time, rather than during diligence.
+
+### Tier 3. Buyers will compete for this (score 62 to 79.9, around 5.8x)
+**You have built something clean, and the job now is running a proper process**
+Margins hold up, somebody else can run it, and the revenue does not hang on one client or one person. Businesses like yours get bid for.
+
+**Roadmap**:
+1. Get a quality of earnings review done before a buyer does one to you.
+2. Convert whatever you can from one off work to contracted income, because it is worth more than the revenue it replaces.
+3. Write the three year growth story, with the channels you have not touched yet and what they are worth.
+4. Interview three advisers and pick the one who will get more than one buyer to the table.
+
+### Tier 4. Top of the market (score 80 to 100, around 8.5x)
+**Very few owners get here**
+The management runs it, the income renews, the books stand up and the contracts hold. Your job now is making sure you do not leave money on the table.
+
+**Roadmap**:
+1. Run a proper private auction through an adviser who works in your sector.
+2. Look hard at trade buyers who gain something from owning you, because they pay above the market rate.
+3. Get the tax structuring done early, and by somebody who does this for a living.
+4. Lock in your key people with retention packages before anybody knows the business is for sale.
+
+### Tier 4 variant, for businesses under 1m turnover
+**As good as it gets at your size**
+The fundamentals here are as strong as I see them. Scale is the only thing holding the multiple down.
+
+**Roadmap**:
+1. Put everything into growth for the next two years, since the fundamentals are already right.
+2. Keep the recurring revenue percentage climbing whilst you scale.
+3. Revisit this diagnostic when you cross three million, because the ceiling on your multiple moves at that point.
+
+---
+
+## 6. Where each result leads (Call to Action Routing)
+
+- **Q16 = inside twelve months (any tier)** OR **Tier 3 or 4**:
+  - *Headline*: Thirty minutes, your numbers, no pitch.
+  - *Body*: If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds, and the order I would fix it in if this were my business. No sales pitch and no generic advice, because neither of us has time for it.
+  - *Button*: Book your thirty minute review with Gary
+- **Tier 1 or Tier 2 (more than 12 months out)**:
+  - *Headline*: The work comes before the exit.
+  - *Body*: Your score says the job right now is building the thing a buyer would want, and that is months of work rather than a phone call. The Accelerator is where I take owners through it, in order, using the same checklist I run over any business before I buy it.
+  - *Button*: Join the Business Accelerator
+- **Broken Economics**:
+  - *Headline*: The work comes before the exit.
+  - *Body*: Your business has structural margin issues that must be solved before any exit is viable. The Accelerator is where I take owners through fixing core unit economics and turning unprofitable volume into a healthy, valuable enterprise.
+  - *Button*: Join the Business Accelerator
