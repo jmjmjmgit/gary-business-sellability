@@ -127,18 +127,24 @@ export default function App() {
           <div style={{ 
             background: 'rgba(239, 68, 68, 0.12)', 
             border: '1px solid rgba(239, 68, 68, 0.35)', 
-            borderRadius: '100px', 
-            padding: '0.5rem 1.35rem', 
+            borderRadius: '16px', 
+            padding: '0.65rem 1.4rem', 
             color: '#B91C1C', 
             fontSize: '0.88rem', 
             fontWeight: 800, 
             display: 'inline-flex', 
             alignItems: 'center', 
-            gap: '0.5rem', 
-            marginBottom: '1.35rem' 
+            justifyContent: 'center',
+            gap: '0.65rem', 
+            marginBottom: '1.5rem',
+            textAlign: 'center',
+            lineHeight: 1.45
           }}>
-            <span>⚠️</span>
-            <span>Between 70% and 80% of businesses that go to market never sell. (Source: Exit Planning Institute)</span>
+            <span style={{ fontSize: '1.1rem' }}>⚠️</span>
+            <div>
+              <div>Between 70% and 80% of businesses that go to market never sell.</div>
+              <div style={{ fontSize: '0.82rem', fontWeight: 600, opacity: 0.9, marginTop: '0.15rem' }}>Source: Exit Planning Institute</div>
+            </div>
           </div>
 
           <h1 className="stark-title" style={{ fontSize: '2.5rem', marginBottom: '1.1rem', lineHeight: 1.25 }}>
