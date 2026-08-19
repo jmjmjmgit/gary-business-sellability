@@ -262,7 +262,7 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
           Why This Gap Matters
         </div>
         <p style={{ color: '#334155', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
-          "I assumed my tech recruitment business would sell for eight to ten times EBITDA, because that is what the sector had always achieved. By the time I came to sell, the going rate was five. Nobody had told me the market had moved, and that gap cost me millions. This diagnostic exists so it does not happen to you."
+          "I assumed my tech recruitment business would sell for eight to ten times EBITDA, because that is what the sector had always achieved. By the time I came to sell, the going rate was five. Nobody had told me the market had moved, and that gap cost me millions. This assessment exists so it does not happen to you."
         </p>
         <div style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 700, marginTop: '0.5rem' }}>
           — Gary Ashworth

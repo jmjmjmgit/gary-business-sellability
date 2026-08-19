@@ -242,7 +242,7 @@ export default function App() {
               className="btn-teal-cta" 
               style={{ width: '100%', justifyContent: 'center', padding: '1.1rem 2rem', marginTop: '1.5rem' }}
             >
-              Start the diagnostic
+              Start the assessment
               <ArrowRight size={22} />
             </button>
           </form>
@@ -255,7 +255,7 @@ export default function App() {
           <GlassTubeProgress
             currentStep={currentStepIndex + 1}
             totalSteps={activeQuestions.length}
-            currentSection={currentQuestion.section}
+            sectionNumber={currentQuestion.sectionNumber}
           />
 
           <QuestionCard

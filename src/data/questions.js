@@ -384,7 +384,7 @@ export const OUTCOME_TIERS = {
     roadmap: [
       "Put everything into growth for the next two years, since the fundamentals are already right.",
       "Keep the recurring revenue percentage climbing whilst you scale.",
-      "Revisit this diagnostic when you cross three million, because the ceiling on your multiple moves at that point."
+      "Revisit this assessment when you cross three million, because the ceiling on your multiple moves at that point."
     ]
   }
 };
