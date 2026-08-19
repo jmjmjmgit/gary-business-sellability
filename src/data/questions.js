@@ -599,7 +599,7 @@ export const getCtaRouting = (answers, tierKey, isBrokenEconomics) => {
       headline: "Thirty minutes, your numbers, no pitch.",
       body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds, and the order I would fix it in if this were my business. No sales pitch and no generic advice, because neither of us has time for it.",
       buttonText: "Book your thirty minute review with Gary",
-      buttonLink: "https://garyashworth.com/business-accelerator"
+      buttonLink: "https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true"
     };
   }
 
@@ -610,7 +610,7 @@ export const getCtaRouting = (answers, tierKey, isBrokenEconomics) => {
       headline: "Thirty minutes, your numbers, no pitch.",
       body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds, and the order I would fix it in if this were my business. No sales pitch and no generic advice, because neither of us has time for it.",
       buttonText: "Book your thirty minute review with Gary",
-      buttonLink: "https://garyashworth.com/business-accelerator"
+      buttonLink: "https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true"
     };
   }
 

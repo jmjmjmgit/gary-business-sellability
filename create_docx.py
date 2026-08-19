@@ -423,11 +423,11 @@ def create_document():
         "CTA FOR THE CALL:\n"
         "Headline: Thirty minutes, your numbers, no pitch.\n"
         "Body: If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds, and the order I would fix it in if this were my business. No sales pitch and no generic advice, because neither of us has time for it.\n"
-        "Button: Book your thirty minute review with Gary\n\n"
+        "Button: Book your thirty minute review with Gary (Link: https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true)\n\n"
         "CTA FOR THE ACCELERATOR:\n"
         "Headline: The work comes before the exit.\n"
         "Body: Your score says the job right now is building the thing a buyer would want, and that is months of work rather than a phone call. The Accelerator is where I take owners through it, in order, using the same checklist I run over any business before I buy it.\n"
-        "Button: Join the Business Accelerator",
+        "Button: Join the Business Accelerator (Link: https://garyashworth.com/business-accelerator)",
         title="Conversion Routing Logic:",
         border_color="2ABAD2",
         fill_color="F8FAFC"
