@@ -149,26 +149,8 @@ export default function App() {
             Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations
           </p>
 
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 1.1rem', background: 'rgba(42, 187, 210, 0.12)', border: '1px solid rgba(42, 187, 210, 0.3)', borderRadius: '100px', color: '#2ABAD2', fontSize: '0.85rem', fontWeight: 800, marginBottom: '1.75rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 1.1rem', background: 'rgba(42, 187, 210, 0.12)', border: '1px solid rgba(42, 187, 210, 0.3)', borderRadius: '100px', color: '#2ABAD2', fontSize: '0.85rem', fontWeight: 800, marginBottom: '2.25rem' }}>
             2–3 minutes to complete
-          </div>
-
-          {/* Credibility Block */}
-          <div style={{ 
-            background: 'rgba(42, 187, 210, 0.08)', 
-            border: '1px solid rgba(42, 187, 210, 0.25)', 
-            borderRadius: '16px', 
-            padding: '1rem 1.35rem', 
-            marginBottom: '2rem', 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '0.85rem', 
-            textAlign: 'left' 
-          }}>
-            <Award size={30} color="#2ABAD2" style={{ flexShrink: 0 }} />
-            <div style={{ fontSize: '0.95rem', color: '#0B0F19', fontWeight: 600, lineHeight: 1.5 }}>
-              Forty years of buying, building and selling businesses. Thirty of them, give or take, and a fair few lessons I paid for the hard way.
-            </div>
           </div>
 
           {/* What You Get at the End */}
