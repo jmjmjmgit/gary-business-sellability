@@ -1,4 +1,4 @@
-// BUSINESS SELLABILITY DIAGNOSTIC — Master Specification Version 2
+// BUSINESS SELLABILITY ASSESSMENT — Master Specification Version 2
 // Scoring Engine, Valuation Model, Diagnosis Logic & Copy
 
 export const SECTIONS = {
@@ -32,7 +32,7 @@ export const QUESTIONS = [
     section: SECTIONS.MONEY,
     sectionNumber: 1,
     questionNumber: 2,
-    title: "What is your net profit margin before your own salary, interest and tax?",
+    title: "What is your net profit margin before your own salary, interest, and tax?",
     subtitle: "This is the number buyers price off. Turnover is what you tell people at dinner, margin is what somebody buys.",
     options: [
       { id: "q2_a", label: "Negative or breakeven", points: 0, marginEstimate: 0.03, triggersConditional: "q2b" },
@@ -171,7 +171,7 @@ export const QUESTIONS = [
     section: SECTIONS.RISKS,
     sectionNumber: 3,
     questionNumber: "8B",
-    title: "Is that single source something you own or control, such as an exclusive licence, a patent or an agreement nobody else can get?",
+    title: "Is that single source something you own or control, such as an exclusive licence, a patent, or an agreement nobody else can get?",
     subtitle: "Owning the only route to market is an asset. Being hostage to somebody else's is a risk.",
     options: [
       { id: "q8b_a", label: "Yes, we own or control it", points: 8 },
@@ -330,7 +330,7 @@ export const OUTCOME_TIERS = {
     roadmap: [
       "Bring your largest customer under fifteen percent of turnover.",
       "Get your top accounts onto one to three year agreements with clear renewal terms.",
-      "Sort out contracts, notice periods and retention for the people a buyer would worry about losing.",
+      "Sort out contracts, notice periods, and retention for the people a buyer would worry about losing.",
       "Clean up two years of accounts now, whilst you have time, rather than during diligence."
     ]
   },
@@ -362,7 +362,7 @@ export const OUTCOME_TIERS = {
     color: "#10B981",
     badgeClass: "badge-premium",
     headline: "Very few owners get here",
-    description: "The management runs it, the income renews, the books stand up and the contracts hold. Your job now is making sure you do not leave money on the table by taking the first approach that lands in your inbox, which is how most owners at your level end up underpaid.",
+    description: "The management runs it, the income renews, the books stand up, and the contracts hold. Your job now is making sure you do not leave money on the table by taking the first approach that lands in your inbox, which is how most owners at your level end up underpaid.",
     roadmap: [
       "Run a proper private auction through an adviser who works in your sector.",
       "Look hard at trade buyers who gain something from owning you, because they pay above the market rate.",
@@ -434,7 +434,6 @@ export const calculateValuationEngine = (answers, rawScore) => {
   let multipleWithRecurring = baseMultiple + (hasRecurringUplift ? 0.5 : 0);
 
   // Step 5: Size Cap Applied
-  // Under 1m capped at 4.0x, 1m to 3m at 5.5x, 3m to 10m at 7.0x, over 10m at 8.5x
   const finalMultiple = Math.min(multipleWithRecurring, sizeCap);
 
   // Step 6: Today's Value

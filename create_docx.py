@@ -157,14 +157,6 @@ def create_document():
     p.add_run("Duration Badge: ").bold = True
     p.add_run("2–3 minutes to complete")
 
-    p = doc.add_paragraph()
-    p.add_run("Credibility Block: ").bold = True
-    p.add_run("Forty years of buying, building and selling businesses. Thirty of them, give or take, and a fair few lessons I paid for the hard way.")
-
-    p = doc.add_paragraph()
-    p.add_run("Secondary Credibility Block (Results Page / Under the fold): ").bold = True
-    p.add_run('"I assumed my tech recruitment business would sell for eight to ten times EBITDA, because that is what the sector had always achieved. By the time I came to sell, the going rate was five. Nobody had told me the market had moved, and that gap cost me millions. This diagnostic exists so it does not happen to you."')
-
     add_h2("What You Get at the End")
     p = doc.add_paragraph(style='List Bullet')
     p.add_run("Your number: ").bold = True
@@ -172,7 +164,7 @@ def create_document():
     
     p = doc.add_paragraph(style='List Bullet')
     p.add_run("Your biggest value killer: ").bold = True
-    p.add_run("The single risk taking the most money off your price, named and costed.")
+    p.add_run("The single risk taking the most money off your price, named, and costed.")
     
     p = doc.add_paragraph(style='List Bullet')
     p.add_run("Your gap: ").bold = True

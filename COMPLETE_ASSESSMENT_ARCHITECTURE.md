@@ -44,20 +44,14 @@ Read this before building anything else. The scoring in version 1 did not add up
 > If you put your business on the market next Monday, what would a buyer really pay for it?
 
 **SUBHEADLINE**
-> Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price.
+> Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations
 
 **DURATION BADGE**
-> About four minutes. No jargon.
-
-**CREDIBILITY BLOCK**
-> Forty years of buying, building and selling businesses. Thirty of them, give or take, and a fair few lessons I paid for the hard way.
-
-**SECONDARY CREDIBILITY BLOCK, USE UNDER THE FOLD OR ON THE RESULTS PAGE**
-> I assumed my tech recruitment business would sell for eight to ten times EBITDA, because that is what the sector had always achieved. By the time I came to sell, the going rate was five. Nobody had told me the market had moved, and that gap cost me millions. This diagnostic exists so it does not happen to you.
+> 2–3 minutes to complete
 
 **WHAT YOU GET AT THE END**
 - Your number. What a buyer would likely pay today, and the multiple your business is earning.
-- Your biggest value killer. The single risk taking the most money off your price, named and costed.
+- Your biggest value killer. The single risk taking the most money off your price, named, and costed.
 - Your gap. The difference in pounds between what you would get today and the ceiling for a business your size, with the order I would fix things in.
 
 **FORM FIELDS**
