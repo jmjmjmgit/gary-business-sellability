@@ -271,7 +271,7 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
       </div>
 
       {/* DISCLAIMER NOTE */}
-      <div style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.45, maxWidth: '650px', margin: '0 auto' }}>
+      <div style={{ textAlign: 'center', color: '#94A3B8', fontSize: '0.85rem', lineHeight: 1.5, maxWidth: '680px', margin: '0.5rem auto 0 auto', opacity: 0.85 }}>
         This is an indicative range based on what you have told me, not a formal valuation and not an offer. Real pricing depends on your sector, your accounts and who is at the table.
       </div>
 
