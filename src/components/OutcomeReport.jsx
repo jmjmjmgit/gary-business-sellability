@@ -250,25 +250,6 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
         </div>
       </div>
 
-      {/* SECONDARY CREDIBILITY STORY BLOCK */}
-      <div style={{ 
-        background: 'rgba(42, 187, 210, 0.06)', 
-        border: '1px solid rgba(42, 187, 210, 0.25)', 
-        borderRadius: '20px', 
-        padding: '1.75rem', 
-        textAlign: 'left' 
-      }}>
-        <div style={{ fontWeight: 800, fontSize: '1.05rem', color: '#0F172A', marginBottom: '0.5rem' }}>
-          Why This Gap Matters
-        </div>
-        <p style={{ color: '#334155', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
-          "I assumed my tech recruitment business would sell for eight to ten times EBITDA, because that is what the sector had always achieved. By the time I came to sell, the going rate was five. Nobody had told me the market had moved, and that gap cost me millions. This assessment exists so it does not happen to you."
-        </p>
-        <div style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 700, marginTop: '0.5rem' }}>
-          — Gary Ashworth
-        </div>
-      </div>
-
       {/* DYNAMIC CALL TO ACTION ROUTED BY Q16 & TIER */}
       <div className="unfiltered-cta-card">
         <h2 className="unfiltered-cta-title">{cta.headline}</h2>
