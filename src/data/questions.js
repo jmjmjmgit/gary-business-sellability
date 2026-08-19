@@ -596,8 +596,8 @@ export const getCtaRouting = (answers, tierKey, isBrokenEconomics) => {
   if (exitTimeline === 'q16_a') {
     return {
       type: "CALL",
-      headline: "Thirty minutes, your numbers, no pitch.",
-      body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds, and the order I would fix it in if this were my business. No sales pitch and no generic advice, because neither of us has time for it.",
+      headline: "Next Step: Book a 1:1 Private Advisory Call",
+      body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds/dollars, and the order I would fix it in if this were my business.",
       buttonText: "Book your thirty minute review with Gary",
       buttonLink: "https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true"
     };
@@ -607,8 +607,8 @@ export const getCtaRouting = (answers, tierKey, isBrokenEconomics) => {
   if (tierKey === 'TIER_3' || tierKey === 'TIER_4' || tierKey === 'TIER_4_UNDER_1M') {
     return {
       type: "CALL",
-      headline: "Thirty minutes, your numbers, no pitch.",
-      body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds, and the order I would fix it in if this were my business. No sales pitch and no generic advice, because neither of us has time for it.",
+      headline: "Next Step: Book a 1:1 Private Advisory Call",
+      body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds/dollars, and the order I would fix it in if this were my business.",
       buttonText: "Book your thirty minute review with Gary",
       buttonLink: "https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true"
     };
