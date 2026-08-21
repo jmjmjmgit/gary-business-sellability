@@ -147,11 +147,11 @@ def create_document():
 
     p = doc.add_paragraph()
     p.add_run("Headline: ").bold = True
-    p.add_run("If you put your business on the market next Monday, what would a buyer really pay for it?")
+    p.add_run("If you put your business on the market today, what would a buyer really pay for it?")
     
     p = doc.add_paragraph()
     p.add_run("Subheadline: ").bold = True
-    p.add_run("Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations")
+    p.add_run("Answer sixteen questions and I will show you an estimated value and multiple your business is worth today, plus the one thing doing the most damage to your price. Includes tailored recommendations.")
 
     p = doc.add_paragraph()
     p.add_run("Duration Badge: ").bold = True
@@ -179,7 +179,7 @@ def create_document():
     p.add_run("Company name, optional")
     p = doc.add_paragraph(style='List Bullet')
     p.add_run("Button copy: ").bold = True
-    p.add_run("Start the diagnostic")
+    p.add_run("Start the assessment")
 
     # --- 2. QUESTIONS AND LOGIC ---
     add_h1("2. Questions and Logic (Copy is Final)")
@@ -205,8 +205,8 @@ def create_document():
     )
 
     render_q(
-        "Q2", "What is your net profit margin before your own salary, interest and tax?",
-        "This is the number buyers price off. Turnover is what you tell people at dinner, margin is what somebody buys.",
+        "Q2", "What is your net profit margin before your own salary, interest, and tax?",
+        "This is your Adjusted EBITDA margin—the underlying earnings figure buyers price off. Turnover is for dinner conversation; margin is what somebody buys.",
         [("Negative or breakeven", "0 pts, triggers Q2B, backend estimate 3%"), ("1% to 10%", "5 pts, backend estimate 7.5%"), ("11% to 20%", "10 pts, backend estimate 15%"), ("Over 20%", "15 pts, backend estimate 25%")]
     )
 
@@ -219,7 +219,7 @@ def create_document():
     render_q(
         "Q3", "How is turnover moving year on year?",
         "Buyers are paying for the next three years of profit, and a falling line tells them the next three will be worse than the last three.",
-        [("Going backwards", "0 pts, caps final score at 55"), ("Flat", "5 pts"), ("Growing 1% to 15%", "10 pts"), ("Growing more than 15%", "15 pts")]
+        [("Going backwards", "0 pts, caps score at 55"), ("Flat", "5 pts"), ("Growing 1% to 15%", "10 pts"), ("Growing more than 15%", "15 pts")]
     )
 
     add_h2("Section 2: How much of it is you")
@@ -232,7 +232,7 @@ def create_document():
     render_q(
         "Q5", "What happens to sales if you disappear for three months?",
         "This is the question that separates a business from a well paid job.",
-        [("They stop", "0 pts, sets Owner Dependent flag"), ("They halve", "3 pts"), ("They hold steady", "7 pts"), ("They keep growing, because the team runs it", "10 pts")]
+        [("They stop", "0 pts, flags owner-dependent"), ("They halve", "3 pts"), ("They hold steady", "7 pts"), ("They keep growing, because the team runs it", "10 pts")]
     )
 
     render_q(
@@ -261,7 +261,7 @@ def create_document():
     )
 
     render_q(
-        "Q8B (conditional)", "Is that single source something you own or control, such as an exclusive licence, a patent or an agreement nobody else can get?",
+        "Q8B (conditional)", "Is that single source something you own or control, such as an exclusive licence, a patent, or an agreement nobody else can get?",
         "Owning the only route to market is an asset. Being hostage to somebody else's is a risk.",
         [("Yes, we own or control it", "+8 pts"), ("No, we are dependent on them", "0 pts")]
     )
@@ -274,7 +274,7 @@ def create_document():
 
     add_h2("Section 4: Quality of the earnings")
     render_q(
-        "Q10", "How much of your revenue is on subscription or contract?",
+        "Q10", "How much of your revenue is recurring or contracted?",
         "Contracted income is the closest thing to guaranteed money a buyer can see, and they pay a premium for it.",
         [("None, every sale starts from scratch", "0 pts"), ("Under 20%", "4 pts"), ("21% to 50%", "8 pts"), ("Over 50%", "12 pts, adds 0.5x to multiple")]
     )

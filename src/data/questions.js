@@ -33,7 +33,7 @@ export const QUESTIONS = [
     sectionNumber: 1,
     questionNumber: 2,
     title: "What is your net profit margin before your own salary, interest, and tax?",
-    subtitle: "This is the number buyers price off. Turnover is what you tell people at dinner, margin is what somebody buys.",
+    subtitle: "This is your Adjusted EBITDA margin—the underlying earnings figure buyers price off. Turnover is for dinner conversation; margin is what somebody buys.",
     options: [
       { id: "q2_a", label: "Negative or breakeven", points: 0, marginEstimate: 0.03, triggersConditional: "q2b" },
       { id: "q2_b", label: "1% to 10%", points: 5, marginEstimate: 0.075 },
@@ -199,7 +199,7 @@ export const QUESTIONS = [
     section: SECTIONS.QUALITY,
     sectionNumber: 4,
     questionNumber: 10,
-    title: "How much of your revenue is on subscription or contract?",
+    title: "How much of your revenue is recurring or contracted?",
     subtitle: "Contracted income is the closest thing to guaranteed money a buyer can see, and they pay a premium for it.",
     options: [
       { id: "q10_a", label: "None, every sale starts from scratch", points: 0 },

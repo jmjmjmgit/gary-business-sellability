@@ -28,10 +28,10 @@ Read this before building anything else. The scoring in version 1 did not add up
 | Q10 = Over 50% | Adds 0.5x to the valuation multiple, after the size cap is applied. |
 | Q1 = Under 1 million | Multiple capped at 4.0x regardless of score. |
 
-- **Header Branding Pill**: `• GARY ASHWORTH'S BUSINESS SELLABILITY ASSESSMENT`
+- **Header Branding Pill**: `• GARY ASHWORTH'S BUSINESS SELLABILITY ASSESSMENT TOOL`
 - **Banner Statistic**: `⚠️ Between 70% and 80% of businesses that go to market never sell. Source: Exit Planning Institute.`
-- **Headline**: `If you put your business on the market next Monday, what would a buyer really pay for it?`
-- **Subheadline**: `Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations`
+- **Headline**: `If you put your business on the market today, what would a buyer really pay for it?`
+- **Subheadline**: `Answer sixteen questions and I will show you an estimated value and multiple your business is worth today, plus the one thing doing the most damage to your price. Includes tailored recommendations.`
 - **Duration Badge**: `2–3 minutes to complete`
 
 ---
@@ -41,10 +41,10 @@ Read this before building anything else. The scoring in version 1 did not add up
 > **Banner statistic: Between 70% and 80% of businesses that go to market never sell. Source: Exit Planning Institute.**
 
 **HEADLINE**
-> If you put your business on the market next Monday, what would a buyer really pay for it?
+> If you put your business on the market today, what would a buyer really pay for it?
 
 **SUBHEADLINE**
-> Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations
+> Answer sixteen questions and I will show you an estimated value and multiple your business is worth today, plus the one thing doing the most damage to your price. Includes tailored recommendations.
 
 **DURATION BADGE**
 > 2–3 minutes to complete
@@ -58,7 +58,7 @@ Read this before building anything else. The scoring in version 1 did not add up
 - Full name, required.
 - Work email, required.
 - Company name, optional.
-- Button copy: Start the diagnostic
+- Button copy: Start the assessment
 
 ---
 
@@ -73,8 +73,8 @@ _Revenue decides which buyers will look at you at all, and it sets the ceiling o
 - 3 million to 10 million (15 pts, backend estimate 6.0m)
 - Over 10 million (20 pts, backend estimate 15.0m)
 
-#### Q2. What is your net profit margin before your own salary, interest and tax?
-_This is the number buyers price off. Turnover is what you tell people at dinner, margin is what somebody buys._
+#### Q2. What is your net profit margin before your own salary, interest, and tax?
+_This is your Adjusted EBITDA margin—the underlying earnings figure buyers price off. Turnover is for dinner conversation; margin is what somebody buys._
 - Negative or breakeven (0 pts, triggers Q2B, backend estimate 3%)
 - 1% to 10% (5 pts, backend estimate 7.5%)
 - 11% to 20% (10 pts, backend estimate 15%)
@@ -154,7 +154,7 @@ _This tells a buyer whether the sales system belongs to the business or lives in
 
 ### Section 4: Quality of the earnings
 
-#### Q10. How much of your revenue is on subscription or contract?
+#### Q10. How much of your revenue is recurring or contracted?
 _Contracted income is the closest thing to guaranteed money a buyer can see, and they pay a premium for it._
 - None, every sale starts from scratch (0 pts)
 - Under 20% (4 pts)

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { QUESTIONS, SECTIONS, MAX_RAW_POINTS } from './data/questions';
+import { QUESTIONS, SECTIONS, MAX_RAW_POINTS, calculateValuationEngine, getValueKillers } from './data/questions';
 import { BackgroundShapes } from './components/BackgroundShapes';
 import { GlassTubeProgress } from './components/GlassTubeProgress';
 import { QuestionCard } from './components/QuestionCard';
@@ -18,6 +18,45 @@ export default function App() {
   const [leadEmail, setLeadEmail] = useState('');
   const [leadCompany, setLeadCompany] = useState('');
   const [formError, setFormError] = useState('');
+
+  // Calculate Raw Total Points
+  const calculateTotalRawPoints = (currentAnswers = answers) => {
+    let raw = 0;
+    activeQuestions.forEach((q) => {
+      const selected = currentAnswers[q.id];
+      if (selected && selected.points) {
+        raw += selected.points;
+      }
+    });
+    return Math.max(0, raw);
+  };
+
+  const submitLeadData = async (status = "STARTED", finalAnswers = answers) => {
+    try {
+      const raw = calculateTotalRawPoints(finalAnswers);
+      const val = calculateValuationEngine(finalAnswers, raw);
+      const killers = getValueKillers(finalAnswers, val.score);
+
+      await fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: leadName,
+          email: leadEmail,
+          company: leadCompany,
+          status,
+          rawScore: raw,
+          score: val.score,
+          tierKey: val.tierKey,
+          valuationData: val,
+          primaryKiller: killers.primaryKiller,
+          secondaryKillers: killers.secondaryKillers
+        })
+      });
+    } catch (err) {
+      console.warn('Lead capture notification:', err);
+    }
+  };
 
   // Compute active questions flow dynamically based on conditional triggers
   const getActiveQuestions = () => {
@@ -55,6 +94,7 @@ export default function App() {
     if (currentStepIndex < activeQuestions.length - 1) {
       setCurrentStepIndex((prev) => prev + 1);
     } else {
+      submitLeadData("COMPLETED", answers);
       setIsCompleted(true);
     }
   };
@@ -84,18 +124,7 @@ export default function App() {
     }
     setFormError('');
     setIsStarted(true);
-  };
-
-  // Calculate Raw Total Points
-  const calculateTotalRawPoints = () => {
-    let raw = 0;
-    activeQuestions.forEach((q) => {
-      const selected = answers[q.id];
-      if (selected && selected.points) {
-        raw += selected.points;
-      }
-    });
-    return Math.max(0, raw);
+    submitLeadData("STARTED", answers);
   };
 
   const rawScore = calculateTotalRawPoints();
@@ -109,7 +138,7 @@ export default function App() {
       <header className="header-brand">
         <div className="brand-badge">
           <span className="teal-dot" />
-          GARY ASHWORTH'S BUSINESS SELLABILITY ASSESSMENT
+          GARY ASHWORTH'S BUSINESS SELLABILITY ASSESSMENT TOOL
         </div>
 
         {(isStarted || isCompleted) && (
@@ -148,15 +177,20 @@ export default function App() {
           </div>
 
           <h1 className="stark-title" style={{ fontSize: '2.5rem', marginBottom: '1.1rem', lineHeight: 1.25 }}>
-            If you put your business on the market next Monday, what would a buyer really pay for it?
+            If you put your business on the market today, what would a buyer really pay for it?
           </h1>
 
           <p className="stark-subtitle" style={{ maxWidth: '680px', margin: '0 auto 1.5rem auto', fontSize: '1.08rem' }}>
-            Answer sixteen questions and I will show you the number, the multiple your business earns today, and the one thing doing the most damage to your price. Includes tailored recommendations
+            Answer sixteen questions and I will show you an estimated value and multiple your business is worth today, plus the one thing doing the most damage to your price. Includes tailored recommendations.
           </p>
 
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 1.1rem', background: 'rgba(42, 187, 210, 0.12)', border: '1px solid rgba(42, 187, 210, 0.3)', borderRadius: '100px', color: '#2ABAD2', fontSize: '0.85rem', fontWeight: 800, marginBottom: '2.25rem' }}>
-            2–3 minutes to complete
+          <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: '0.6rem', marginBottom: '2.25rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 1.1rem', background: 'rgba(42, 187, 210, 0.12)', border: '1px solid rgba(42, 187, 210, 0.3)', borderRadius: '100px', color: '#2ABAD2', fontSize: '0.85rem', fontWeight: 800 }}>
+              2–3 minutes to complete
+            </div>
+            <div style={{ color: '#475569', fontSize: '0.82rem', fontWeight: 600 }}>
+              A strategic guide designed to help you identify and fix value leaks well ahead of time.
+            </div>
           </div>
 
           {/* What You Get at the End */}
