@@ -1,5 +1,5 @@
 // Cloudflare Pages Function: /api/submit-lead
-// Securely receives lead capture submissions, logs data, and forwards to webhook if configured
+// Receives assessment lead submissions, sends to MailerLite, and forwards to webhook if configured
 
 export async function onRequestPost(context) {
   try {
@@ -28,7 +28,29 @@ export async function onRequestPost(context) {
       source: "Gary Ashworth Sellability Assessment"
     };
 
-    // If an external webhook is provided in environment variables (Zapier, Make, Google Sheets, CRM)
+    // 1. Submit lead to MailerLite Form (Account: 1848379, Form: 197317486398408585)
+    try {
+      const mlParams = new URLSearchParams();
+      mlParams.append("fields[name]", data.name);
+      mlParams.append("fields[email]", data.email);
+      if (data.company) {
+        mlParams.append("fields[company]", data.company);
+      }
+      mlParams.append("ml-submit", "1");
+      mlParams.append("anticsrf", "true");
+
+      await fetch("https://assets.mailerlite.com/jsonp/1848379/forms/197317486398408585/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: mlParams.toString()
+      });
+    } catch (mlErr) {
+      console.error("MailerLite integration error:", mlErr);
+    }
+
+    // 2. If an external webhook is configured (Zapier, Make, Google Sheets, CRM)
     const webhookUrl = context.env?.LEAD_WEBHOOK_URL;
     if (webhookUrl) {
       try {

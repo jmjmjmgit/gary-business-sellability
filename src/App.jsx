@@ -53,6 +53,23 @@ export default function App() {
           secondaryKillers: killers.secondaryKillers
         })
       });
+
+      // Client-side redundant submission to MailerLite Form 197317486398408585
+      try {
+        const mlParams = new URLSearchParams();
+        mlParams.append("fields[name]", leadName);
+        mlParams.append("fields[email]", leadEmail);
+        if (leadCompany) mlParams.append("fields[company]", leadCompany);
+        mlParams.append("ml-submit", "1");
+        mlParams.append("anticsrf", "true");
+
+        fetch("https://assets.mailerlite.com/jsonp/1848379/forms/197317486398408585/subscribe", {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: mlParams.toString()
+        }).catch(() => {});
+      } catch (e) {}
     } catch (err) {
       console.warn('Lead capture notification:', err);
     }
