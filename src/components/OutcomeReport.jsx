@@ -13,18 +13,15 @@ import {
   RotateCcw, 
   FileText, 
   Printer, 
-  TrendingUp, 
   Zap, 
   Calendar,
   Sparkles,
   ArrowRight,
-  HelpCircle,
-  Clock,
   Layers
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
+export const OutcomeReport = ({ answers, rawScore, onRestart, _leadInfo }) => {
   const valEngine = calculateValuationEngine(answers, rawScore);
   const { primaryKiller, secondaryKillers } = getValueKillers(answers, valEngine.score);
   const cta = getCtaRouting(answers, valEngine.tierKey, valEngine.isBrokenEconomics);
@@ -77,15 +74,15 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
 
         <h1 className="outcome-title">{tier.headline}</h1>
         <p className="outcome-subtitle">
-          {leadInfo?.name ? `${leadInfo.name} — ` : ''}{tier.description}
+          {tier.description}
         </p>
 
         {/* VALUATION & MULTIPLE DIAGNOSTIC (OR BROKEN ECONOMICS NOTICE) */}
         {!valEngine.isBrokenEconomics ? (
           <div className="valuation-hero-container">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
-              <Sparkles size={20} color="#2ABAD2" />
-              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.15rem', color: '#0F172A', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <div className="valuation-header-title">
+              <Sparkles size={20} color="var(--blue-contrast)" />
+              <span className="valuation-headline">
                 Your Number, Multiple & Gap
               </span>
             </div>
@@ -101,12 +98,12 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
                 </div>
               </div>
 
-              <div className="valuation-stat-card" style={{ border: '2px solid rgba(42, 187, 210, 0.4)', background: 'rgba(240, 253, 250, 0.7)' }}>
-                <div className="valuation-stat-label" style={{ color: '#0D9488' }}>Size-Capped Ceiling</div>
-                <div className="valuation-stat-value" style={{ color: '#0D9488' }}>
+              <div className="valuation-stat-card valuation-stat-ceiling">
+                <div className="valuation-stat-label">Size-Capped Ceiling</div>
+                <div className="valuation-stat-value">
                   {formatGBP(valEngine.ceiling)}
                 </div>
-                <div className="valuation-stat-sub" style={{ color: '#0F766E' }}>
+                <div className="valuation-stat-sub">
                   Ceiling multiple of {valEngine.sizeCap.toFixed(1)}x for your turnover band
                 </div>
               </div>
@@ -115,10 +112,10 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
             {valEngine.valuationGap > 0 && (
               <div className="valuation-gap-banner">
                 <div>
-                  <div style={{ fontSize: '0.85rem', textTransform: 'uppercase', fontWeight: 800, letterSpacing: '0.05em', color: '#94A3B8' }}>
+                  <div className="gap-banner-label">
                     Your Gap (Money Left on the Table)
                   </div>
-                  <div style={{ fontSize: '0.98rem', color: '#E2E8F0', marginTop: '0.2rem' }}>
+                  <div className="gap-banner-desc">
                     The difference in pounds between what you would get today and the ceiling for a business your size.
                   </div>
                 </div>
@@ -129,12 +126,12 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
             )}
           </div>
         ) : (
-          <div style={{ background: '#FEF2F2', border: '2px solid #F87171', borderRadius: '20px', padding: '1.75rem', margin: '2rem 0', textAlign: 'left' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#991B1B', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.5rem' }}>
+          <div className="broken-economics-box">
+            <div className="broken-economics-header">
               <AlertTriangle size={24} />
               Broken Economics: Valuation Suppressed
             </div>
-            <p style={{ color: '#7F1D1D', fontSize: '0.96rem', lineHeight: 1.5, margin: 0 }}>
+            <p className="broken-economics-text">
               Because your profit is negative or breakeven due to structural issues, there is no earnings multiple to apply. Any offer on the table would be for asset liquidation value only. This is a fundamental business problem to fix before exit planning.
             </p>
           </div>
@@ -168,7 +165,7 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
 
           {valEngine.hasRecurringUplift && (
             <div className="flag-card multiplier">
-              <Zap size={24} color="#2ABAD2" style={{ flexShrink: 0 }} />
+              <Zap size={24} color="var(--blue-contrast)" style={{ flexShrink: 0 }} />
               <div>
                 <div className="flag-title">+0.5x Recurring Revenue Uplift Added to Multiple</div>
                 <div className="flag-desc">
@@ -202,24 +199,24 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
 
       {/* SECONDARY VALUE KILLERS (ALSO WORTH DEALING WITH) */}
       {secondaryKillers.length > 0 && (
-        <div style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(0, 0, 0, 0.08)', borderRadius: '20px', padding: '1.75rem', textAlign: 'left' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-            <Layers size={20} color="#2ABAD2" />
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.15rem', color: '#0F172A', margin: 0 }}>
+        <div className="secondary-killers-card">
+          <div className="secondary-killers-header">
+            <Layers size={20} color="var(--blue-contrast)" />
+            <h3 className="secondary-killers-title">
               Also Worth Dealing With
             </h3>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div className="secondary-killers-list">
             {secondaryKillers.map((k, idx) => (
-              <div key={idx} style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '1.1rem' }}>
-                <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '1rem', marginBottom: '0.25rem' }}>
+              <div key={idx} className="secondary-killer-item">
+                <div className="secondary-killer-title">
                   {idx + 2}. {k.title}
                 </div>
-                <div style={{ fontSize: '0.85rem', color: '#DC2626', fontWeight: 700, marginBottom: '0.4rem' }}>
+                <div className="secondary-killer-cost">
                   Cost: {k.cost}
                 </div>
-                <div style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.45 }}>
+                <div className="secondary-killer-action">
                   {k.action}
                 </div>
               </div>
@@ -230,17 +227,17 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
 
       {/* ROADMAP BOX */}
       <div className="sop-section">
-        <div className="sop-header" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}>
+        <div className="sop-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <FileText size={28} color="#2ABAD2" />
+            <FileText size={28} color="var(--blue-contrast)" />
             <h2 className="sop-title">The Roadmap to Fix Your Number</h2>
           </div>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', fontWeight: 500, lineHeight: 1.55, marginTop: '0.25rem' }}>
-            The order Gary would fix things in to capture your valuation gap:
+          <p className="sop-subtitle">
+            The order I would fix things in to capture your valuation gap:
           </p>
         </div>
 
-        <div className="sop-grid" style={{ marginTop: '1.5rem' }}>
+        <div className="sop-grid">
           {tier.roadmap.map((step, idx) => (
             <div key={idx} className="sop-item">
               <div className="sop-number">{idx + 1}</div>
@@ -255,36 +252,35 @@ export const OutcomeReport = ({ answers, rawScore, onRestart, leadInfo }) => {
         <h2 className="unfiltered-cta-title">{cta.headline}</h2>
         <p className="unfiltered-cta-body">{cta.body}</p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+        <div className="outcome-cta-wrapper">
           <a
             href={cta.buttonLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-teal-cta"
-            style={{ textDecoration: 'none', padding: '1.1rem 2.5rem', fontSize: '1.1rem', display: 'inline-flex', alignItems: 'center', gap: '0.75rem' }}
+            className="btn-teal-cta outcome-cta-btn"
           >
-            <Calendar size={22} />
-            {cta.buttonText}
-            <ArrowRight size={20} />
+            <Calendar size={20} />
+            <span>{cta.buttonText}</span>
+            <ArrowRight size={18} />
           </a>
         </div>
       </div>
 
       {/* DISCLAIMER NOTE */}
-      <div style={{ textAlign: 'center', color: '#94A3B8', fontSize: '0.85rem', lineHeight: 1.5, maxWidth: '680px', margin: '0.5rem auto 0 auto', opacity: 0.85 }}>
+      <div className="outcome-disclaimer">
         This is an indicative range based on what you have told me, not a formal valuation, and not an offer. Real pricing depends on your sector, your accounts, and who is at the table.
       </div>
 
       {/* Action Buttons */}
-      <div className="panel-actions" style={{ justifyContent: 'center', gap: '1.5rem', background: 'none', border: 'none' }}>
+      <div className="panel-actions report-actions">
         <button className="btn-secondary" onClick={handlePrint}>
           <Printer size={18} />
-          Print / Save PDF Report
+          <span>Print / Save PDF Report</span>
         </button>
 
         <button className="btn-teal-cta" onClick={onRestart}>
           <RotateCcw size={18} />
-          Retake Assessment
+          <span>Retake Assessment</span>
         </button>
       </div>
     </div>

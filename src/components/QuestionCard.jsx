@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, ArrowLeft, AlertTriangle, Sparkles, ShieldAlert } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 
 export const QuestionCard = ({
   question,
@@ -8,8 +8,7 @@ export const QuestionCard = ({
   onNext,
   onPrev,
   isFirst,
-  isLast,
-  isAnimating
+  isLast
 }) => {
   const [animClass, setAnimClass] = useState('water-surface-tension-enter');
 

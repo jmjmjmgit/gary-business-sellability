@@ -33,7 +33,7 @@ export const QUESTIONS = [
     sectionNumber: 1,
     questionNumber: 2,
     title: "What is your net profit margin before your own salary, interest, and tax?",
-    subtitle: "This is your Adjusted EBITDA margin—the underlying earnings figure buyers price off. Turnover is for dinner conversation; margin is what somebody buys.",
+    subtitle: "This is your Adjusted EBITDA margin - the underlying earnings figure buyers price off. Turnover is for dinner conversation; margin is what somebody buys.",
     options: [
       { id: "q2_a", label: "Negative or breakeven", points: 0, marginEstimate: 0.03, triggersConditional: "q2b" },
       { id: "q2_b", label: "1% to 10%", points: 5, marginEstimate: 0.075 },
@@ -468,7 +468,7 @@ export const calculateValuationEngine = (answers, rawScore) => {
 };
 
 // ORDERED #1 VALUE KILLER ENGINE + SECONDARY VALUE KILLERS
-export const getValueKillers = (answers, score) => {
+export const getValueKillers = (answers, _score) => {
   const allKillers = [];
 
   // 1. You are the business (Q5 = sales stop)
@@ -570,12 +570,12 @@ export const getValueKillers = (answers, score) => {
   // Fallback if none of the 8 explicit triggers fired
   if (allKillers.length === 0) {
     allKillers.push({
-      id: "operational_refinement",
-      title: "Operational multiple optimization",
-      trigger: "Continuous improvement across operations",
-      cost: "Leaving 0.5x to 1.5x multiple expansion on the table",
-      diagnosis: "Your foundational operations and management structure are solid. Small improvements in contracted revenue, customer diversification, and middle-management autonomy will bridge your remaining gap to the ceiling multiple.",
-      action: "Convert ongoing client engagements to multi-year contracts, institutionalize management reporting, and prepare for a structured private auction."
+      id: "deal_readiness",
+      title: "Leaving money on the table in negotiations",
+      trigger: "Unprepared for due diligence and buyer scrutiny",
+      cost: "0.5x to 1.5x shaved off your final exit price",
+      diagnosis: "Your core business is in good shape, but buyers look for any crack during diligence to chip away at your price. If your contracts, data room, and second-tier management aren't locked down before you start talking to acquirers, you will give away value at the table.",
+      action: "Tidy up commercial contracts, lock in key staff with retention agreements, and run an internal audit before any buyer looks under the bonnet."
     });
   }
 
@@ -594,7 +594,7 @@ export const getCtaRouting = () => {
     type: "CALL",
     headline: "Next Step: Book a 1:1 Private Advisory Call",
     body: "If you want the unvarnished version, book half an hour with me and bring your figures. We will go through what is costing you the most, what it is worth in pounds/dollars, and the order I would fix it in if this were my business.",
-    buttonText: "Book your thirty minute review with Gary",
+    buttonText: "Book your thirty minute review with me",
     buttonLink: "https://www.cal.eu/garyashworth/advisory-30-min?overlayCalendar=true"
   };
 };

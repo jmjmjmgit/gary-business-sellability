@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { QUESTIONS, SECTIONS, MAX_RAW_POINTS, calculateValuationEngine, getValueKillers } from './data/questions';
+import { QUESTIONS, calculateValuationEngine, getValueKillers } from './data/questions';
 import { BackgroundShapes } from './components/BackgroundShapes';
 import { GlassTubeProgress } from './components/GlassTubeProgress';
 import { QuestionCard } from './components/QuestionCard';
 import { OutcomeReport } from './components/OutcomeReport';
-import { Sparkles, ArrowRight, ShieldCheck, TrendingUp, RefreshCw, BarChart3, Award, Building2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, TrendingUp, RefreshCw, BarChart3, Clock } from 'lucide-react';
 import './styles/liquid-glass.css';
 
 export default function App() {
@@ -69,7 +69,7 @@ export default function App() {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: mlParams.toString()
         }).catch(() => {});
-      } catch (e) {}
+      } catch {}
     } catch (err) {
       console.warn('Lead capture notification:', err);
     }
@@ -151,93 +151,74 @@ export default function App() {
       {/* Animated Dark Abstract Shapes Canvas */}
       <BackgroundShapes />
 
-      {/* Header Branding */}
-      <header className="header-brand">
-        <div className="brand-badge">
-          <span className="teal-dot" />
-          GARY ASHWORTH'S BUSINESS SELLABILITY ASSESSMENT TOOL
-        </div>
-
-        {(isStarted || isCompleted) && (
-          <button className="restart-btn" onClick={handleRestart}>
+      {/* Header Restart Action (only visible when started or completed) */}
+      {(isStarted || isCompleted) && (
+        <header className="header-brand">
+          <button className="restart-btn" onClick={handleRestart} aria-label="Start Over">
             <RefreshCw size={14} />
-            Start Over
+            <span>Start Over</span>
           </button>
-        )}
-      </header>
+        </header>
+      )}
 
       {/* Landing View */}
       {!isStarted && !isCompleted && (
-        <main className="glass-panel water-surface-tension-enter" style={{ textAlign: 'center', maxWidth: '820px' }}>
+        <main className="glass-panel water-surface-tension-enter landing-panel">
           {/* Banner Statistic */}
-          <div style={{ 
-            background: 'rgba(239, 68, 68, 0.12)', 
-            border: '1px solid rgba(239, 68, 68, 0.35)', 
-            borderRadius: '16px', 
-            padding: '0.65rem 1.4rem', 
-            color: '#B91C1C', 
-            fontSize: '0.88rem', 
-            fontWeight: 800, 
-            display: 'inline-flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            gap: '0.65rem', 
-            marginBottom: '1.5rem',
-            textAlign: 'center',
-            lineHeight: 1.45
-          }}>
-            <span style={{ fontSize: '1.1rem' }}>⚠️</span>
+          <div className="banner-stat-warning">
+            <span className="banner-stat-icon">⚠️</span>
             <div>
-              <div>Between 70% and 80% of businesses that go to market never sell.</div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, opacity: 0.9, marginTop: '0.15rem' }}>Source: Exit Planning Institute</div>
+              <div className="banner-stat-text">Between 70% and 80% of businesses that go to market never sell.</div>
+              <div className="banner-stat-sub">Source: Exit Planning Institute</div>
             </div>
           </div>
 
-          <h1 className="stark-title" style={{ fontSize: '2.5rem', marginBottom: '1.1rem', lineHeight: 1.25 }}>
+          <h1 className="landing-title">
             If you put your business on the market today, what would a buyer really pay for it?
           </h1>
 
-          <p className="stark-subtitle" style={{ maxWidth: '680px', margin: '0 auto 1.5rem auto', fontSize: '1.08rem' }}>
-            Answer sixteen questions and I will show you an estimated value and multiple your business is worth today, plus the one thing doing the most damage to your price. Includes tailored recommendations.
+          <p className="landing-subtitle">
+            Answer sixteen questions and I will show you what a buyer would pay for your business today, the multiple you would get, and the single issue doing the most damage to your price.
           </p>
 
-          <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: '0.6rem', marginBottom: '2.25rem' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.35rem 1.1rem', background: 'rgba(42, 187, 210, 0.12)', border: '1px solid rgba(42, 187, 210, 0.3)', borderRadius: '100px', color: '#2ABAD2', fontSize: '0.85rem', fontWeight: 800 }}>
-              2–3 minutes to complete
+          <div className="landing-badge-wrapper">
+            <div className="time-badge">
+              <Clock size={15} />
+              <span>2–3 minutes to complete</span>
             </div>
-            <div style={{ color: '#475569', fontSize: '0.82rem', fontWeight: 600 }}>
-              A strategic guide designed to help you identify and fix value leaks well ahead of time.
+            <div className="strategic-guide-note">
+              Spot and fix the price discounts before a buyer sits across the table from you.
             </div>
           </div>
 
           {/* What You Get at the End */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '2rem', textAlign: 'left' }}>
-            <div style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.25rem', borderRadius: '16px' }}>
-              <TrendingUp size={24} color="#2ABAD2" style={{ marginBottom: '0.5rem' }} />
-              <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0B0F19', marginBottom: '0.25rem' }}>
+          <div className="landing-features-grid">
+            <div className="landing-feature-card">
+              <TrendingUp size={24} className="feature-icon" style={{ color: 'var(--blue-contrast)' }} />
+              <div className="landing-feature-title">
                 Your Number
               </div>
-              <div style={{ fontSize: '0.86rem', color: '#475569', lineHeight: 1.5 }}>
+              <div className="landing-feature-desc">
                 What a buyer would likely pay today, and the multiple your business is earning.
               </div>
             </div>
 
-            <div style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.25rem', borderRadius: '16px' }}>
-              <ShieldCheck size={24} color="#2ABAD2" style={{ marginBottom: '0.5rem' }} />
-              <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0B0F19', marginBottom: '0.25rem' }}>
+            <div className="landing-feature-card">
+              <ShieldCheck size={24} className="feature-icon" style={{ color: 'var(--blue-contrast)' }} />
+              <div className="landing-feature-title">
                 Your Biggest Value Killer
               </div>
-              <div style={{ fontSize: '0.86rem', color: '#475569', lineHeight: 1.5 }}>
+              <div className="landing-feature-desc">
                 The single risk taking the most money off your price, named and costed.
               </div>
             </div>
 
-            <div style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '1.25rem', borderRadius: '16px' }}>
-              <BarChart3 size={24} color="#2ABAD2" style={{ marginBottom: '0.5rem' }} />
-              <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0B0F19', marginBottom: '0.25rem' }}>
+            <div className="landing-feature-card">
+              <BarChart3 size={24} className="feature-icon" style={{ color: 'var(--blue-contrast)' }} />
+              <div className="landing-feature-title">
                 Your Gap
               </div>
-              <div style={{ fontSize: '0.86rem', color: '#475569', lineHeight: 1.5 }}>
+              <div className="landing-feature-desc">
                 The difference in pounds between what you would get today and the ceiling for your size.
               </div>
             </div>
@@ -283,18 +264,17 @@ export default function App() {
             </div>
 
             {formError && (
-              <div style={{ color: '#DC2626', fontWeight: 700, fontSize: '0.88rem', margin: '1rem 0 0 0', textAlign: 'center' }}>
+              <div className="form-error-msg">
                 {formError}
               </div>
             )}
 
             <button 
               type="submit"
-              className="btn-teal-cta" 
-              style={{ width: '100%', justifyContent: 'center', padding: '1.1rem 2rem', marginTop: '1.5rem' }}
+              className="btn-teal-cta landing-submit-btn"
             >
-              Start the assessment
-              <ArrowRight size={22} />
+              <span>Start the assessment</span>
+              <ArrowRight size={20} />
             </button>
           </form>
         </main>
