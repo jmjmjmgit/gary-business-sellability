@@ -32,47 +32,64 @@ export default function App() {
   };
 
   const submitLeadData = async (status = "STARTED", finalAnswers = answers) => {
+    const trimmedName = leadName.trim();
+    const trimmedEmail = leadEmail.trim().toLowerCase();
+    const trimmedCompany = leadCompany.trim();
+
+    if (!trimmedEmail || !trimmedEmail.includes('@')) return;
+
+    // 1. Instant local persistence (laser-proof fallback if user goes offline)
+    const raw = calculateTotalRawPoints(finalAnswers);
+    const val = calculateValuationEngine(finalAnswers, raw);
+    const killers = getValueKillers(finalAnswers, val.score);
+
+    const leadPayload = {
+      name: trimmedName,
+      email: trimmedEmail,
+      company: trimmedCompany,
+      status,
+      rawScore: raw,
+      score: val.score,
+      tierKey: val.tierKey,
+      valuationData: val,
+      primaryKiller: killers.primaryKiller,
+      secondaryKillers: killers.secondaryKillers,
+      submittedAt: new Date().toISOString()
+    };
+
     try {
-      const raw = calculateTotalRawPoints(finalAnswers);
-      const val = calculateValuationEngine(finalAnswers, raw);
-      const killers = getValueKillers(finalAnswers, val.score);
+      localStorage.setItem('sellability_latest_lead', JSON.stringify(leadPayload));
+    } catch {}
 
-      await fetch('/api/submit-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: leadName,
-          email: leadEmail,
-          company: leadCompany,
-          status,
-          rawScore: raw,
-          score: val.score,
-          tierKey: val.tierKey,
-          valuationData: val,
-          primaryKiller: killers.primaryKiller,
-          secondaryKillers: killers.secondaryKillers
-        })
-      });
+    // 2. Channel A: Serverless Cloudflare Function (Bypasses all client ad-blockers / privacy extensions)
+    const serverPromise = fetch('/api/submit-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(leadPayload),
+      keepalive: true
+    }).catch((err) => {
+      console.warn('Serverless lead sync fallback:', err);
+    });
 
-      // Client-side redundant submission to MailerLite Form 197317486398408585
-      try {
-        const mlParams = new URLSearchParams();
-        mlParams.append("fields[name]", leadName);
-        mlParams.append("fields[email]", leadEmail);
-        if (leadCompany) mlParams.append("fields[company]", leadCompany);
-        mlParams.append("ml-submit", "1");
-        mlParams.append("anticsrf", "true");
+    // 3. Channel B: Direct client-side submission to MailerLite Form 197317486398408585 in parallel
+    const mlParams = new URLSearchParams();
+    mlParams.append("fields[name]", trimmedName);
+    mlParams.append("fields[email]", trimmedEmail);
+    if (trimmedCompany) mlParams.append("fields[company]", trimmedCompany);
+    mlParams.append("ml-submit", "1");
+    mlParams.append("anticsrf", "true");
 
-        fetch("https://assets.mailerlite.com/jsonp/1848379/forms/197317486398408585/subscribe", {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: mlParams.toString()
-        }).catch(() => {});
-      } catch {}
-    } catch (err) {
-      console.warn('Lead capture notification:', err);
-    }
+    const directPromise = fetch("https://assets.mailerlite.com/jsonp/1848379/forms/197317486398408585/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: mlParams.toString(),
+      keepalive: true
+    }).catch((err) => {
+      console.warn('Direct MailerLite sync fallback:', err);
+    });
+
+    // Execute both in parallel so neither blocks or fails the other
+    await Promise.allSettled([serverPromise, directPromise]);
   };
 
   // Compute active questions flow dynamically based on conditional triggers

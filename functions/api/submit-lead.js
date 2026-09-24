@@ -13,10 +13,14 @@ export async function onRequestPost(context) {
       });
     }
 
+    const cleanEmail = data.email.trim().toLowerCase();
+    const cleanName = data.name.trim();
+    const cleanCompany = (data.company || "").trim();
+
     const leadPayload = {
-      name: data.name,
-      email: data.email,
-      company: data.company || "Not provided",
+      name: cleanName,
+      email: cleanEmail,
+      company: cleanCompany || "Not provided",
       score: data.score ?? null,
       rawScore: data.rawScore ?? null,
       tier: data.tierKey || "IN_PROGRESS",
@@ -24,6 +28,7 @@ export async function onRequestPost(context) {
       multiple: data.valuationData?.finalMultiple ? `${data.valuationData.finalMultiple}x` : "N/A",
       valuationGap: data.valuationData?.valuationGap ? `£${data.valuationData.valuationGap.toLocaleString()}` : "N/A",
       primaryKiller: data.primaryKiller?.title || "N/A",
+      status: data.status || "STARTED",
       timestamp: new Date().toISOString(),
       source: "Gary Ashworth Sellability Assessment"
     };
@@ -31,10 +36,10 @@ export async function onRequestPost(context) {
     // 1. Submit lead to MailerLite Form (Account: 1848379, Form: 197317486398408585)
     try {
       const mlParams = new URLSearchParams();
-      mlParams.append("fields[name]", data.name);
-      mlParams.append("fields[email]", data.email);
-      if (data.company) {
-        mlParams.append("fields[company]", data.company);
+      mlParams.append("fields[name]", cleanName);
+      mlParams.append("fields[email]", cleanEmail);
+      if (cleanCompany) {
+        mlParams.append("fields[company]", cleanCompany);
       }
       mlParams.append("ml-submit", "1");
       mlParams.append("anticsrf", "true");
@@ -47,10 +52,35 @@ export async function onRequestPost(context) {
         body: mlParams.toString()
       });
     } catch (mlErr) {
-      console.error("MailerLite integration error:", mlErr);
+      console.error("MailerLite form integration error:", mlErr);
     }
 
-    // 2. If an external webhook is configured (Zapier, Make, Google Sheets, CRM)
+    // 2. If a MailerLite API Key is configured in Cloudflare environment variables
+    const apiKey = context.env?.MAILERLITE_API_KEY;
+    if (apiKey) {
+      try {
+        await fetch("https://connect.mailerlite.com/api/subscribers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            email: cleanEmail,
+            fields: {
+              name: cleanName,
+              company: cleanCompany
+            },
+            status: "active"
+          })
+        });
+      } catch (apiErr) {
+        console.error("MailerLite REST API error:", apiErr);
+      }
+    }
+
+    // 3. If an external webhook is configured (Zapier, Make, Google Sheets, CRM)
     const webhookUrl = context.env?.LEAD_WEBHOOK_URL;
     if (webhookUrl) {
       try {
