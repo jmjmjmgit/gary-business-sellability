@@ -34,8 +34,7 @@ export async function onRequestPost(context) {
     };
 
     // 1. Submit lead to MailerLite Form (Account: 1848379, Form: 197317486398408585)
-    try {
-      const mlParams = new URLSearchParams();
+    const mlParams = new URLSearchParams();
       mlParams.append("fields[name]", cleanName);
       mlParams.append("fields[email]", cleanEmail);
       if (cleanCompany) {
@@ -44,16 +43,28 @@ export async function onRequestPost(context) {
       mlParams.append("ml-submit", "1");
       mlParams.append("anticsrf", "true");
 
-      await fetch("https://assets.mailerlite.com/jsonp/1848379/forms/197317486398408585/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: mlParams.toString()
-      });
-    } catch (mlErr) {
-      console.error("MailerLite form integration error:", mlErr);
-    }
+      let mlHttpStatus = null;
+      let mlResponseBody = null;
+      try {
+        const mlRes = await fetch("https://assets.mailerlite.com/jsonp/1848379/forms/197317486398408585/subscribe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json, text/plain, */*",
+            "Origin": "https://quiz.garyashworth.com",
+            "Referer": "https://quiz.garyashworth.com/",
+            "X-Requested-With": "XMLHttpRequest",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+          },
+          body: mlParams.toString()
+        });
+        mlHttpStatus = mlRes.status;
+        mlResponseBody = await mlRes.text();
+      } catch (mlErr) {
+        console.error("MailerLite form integration error:", mlErr);
+        mlHttpStatus = 0;
+        mlResponseBody = mlErr.message;
+      }
 
     // 2. If a MailerLite API Key is configured in Cloudflare environment variables
     const apiKey = context.env?.MAILERLITE_API_KEY;
@@ -94,7 +105,14 @@ export async function onRequestPost(context) {
       }
     }
 
-    return new Response(JSON.stringify({ success: true, lead: leadPayload }), {
+    return new Response(JSON.stringify({ 
+      success: true, 
+      lead: leadPayload,
+      mailerLite: {
+        status: mlHttpStatus,
+        response: mlResponseBody
+      }
+    }), {
       status: 200,
       headers: { 
         "Content-Type": "application/json",

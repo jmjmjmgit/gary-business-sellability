@@ -18,6 +18,7 @@ export default function App() {
   const [leadEmail, setLeadEmail] = useState('');
   const [leadCompany, setLeadCompany] = useState('');
   const [formError, setFormError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Calculate Raw Total Points
   const calculateTotalRawPoints = (currentAnswers = answers) => {
@@ -88,6 +89,13 @@ export default function App() {
       console.warn('Direct MailerLite sync fallback:', err);
     });
 
+    // 4. Channel C: navigator.sendBeacon (OS-level background guarantee, immune to unmounts)
+    try {
+      if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+        navigator.sendBeacon("https://assets.mailerlite.com/jsonp/1848379/forms/197317486398408585/subscribe", mlParams);
+      }
+    } catch {}
+
     // Execute both in parallel so neither blocks or fails the other
     await Promise.allSettled([serverPromise, directPromise]);
   };
@@ -124,11 +132,18 @@ export default function App() {
     }));
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStepIndex < activeQuestions.length - 1) {
       setCurrentStepIndex((prev) => prev + 1);
     } else {
-      submitLeadData("COMPLETED", answers);
+      try {
+        await Promise.race([
+          submitLeadData("COMPLETED", answers),
+          new Promise((resolve) => setTimeout(resolve, 800))
+        ]);
+      } catch (err) {
+        console.warn("Lead completion sync error:", err);
+      }
       setIsCompleted(true);
     }
   };
@@ -146,8 +161,10 @@ export default function App() {
     setIsStarted(false);
   };
 
-  const handleStartAssessment = (e) => {
+  const handleStartAssessment = async (e) => {
     e?.preventDefault();
+    if (isSubmitting) return;
+
     if (!leadName.trim()) {
       setFormError('Please enter your full name.');
       return;
@@ -157,8 +174,20 @@ export default function App() {
       return;
     }
     setFormError('');
-    setIsStarted(true);
-    submitLeadData("STARTED", answers);
+    setIsSubmitting(true);
+
+    try {
+      // Ensure network transmission has started and settled before unmounting the landing page
+      await Promise.race([
+        submitLeadData("STARTED", answers),
+        new Promise((resolve) => setTimeout(resolve, 600))
+      ]);
+    } catch (err) {
+      console.warn("Lead start sync error:", err);
+    } finally {
+      setIsSubmitting(false);
+      setIsStarted(true);
+    }
   };
 
   const rawScore = calculateTotalRawPoints();
@@ -289,8 +318,9 @@ export default function App() {
             <button 
               type="submit"
               className="btn-teal-cta landing-submit-btn"
+              disabled={isSubmitting}
             >
-              <span>Start the assessment</span>
+              <span>{isSubmitting ? 'Starting assessment...' : 'Start the assessment'}</span>
               <ArrowRight size={20} />
             </button>
           </form>
